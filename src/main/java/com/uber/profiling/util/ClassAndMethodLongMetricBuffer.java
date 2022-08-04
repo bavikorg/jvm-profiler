@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ClassAndMethodLongMetricBuffer {
     private volatile ConcurrentHashMap<ClassAndMethodMetricKey, Histogram> metrics = new ConcurrentHashMap<>();
 
-    public void appendValue(String className, String methodName, String metricName, long value) {
+    public void appendValue(/*~~>*/String className, /*~~>*/String methodName, /*~~>*/String metricName, long value) {
         ClassAndMethodMetricKey methodMetricKey = new ClassAndMethodMetricKey(className, methodName, metricName);
         Histogram histogram = metrics.computeIfAbsent(methodMetricKey, key -> new Histogram());
         histogram.appendValue(value);

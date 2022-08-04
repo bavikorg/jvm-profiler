@@ -24,6 +24,6 @@ public class ConsoleOutputReporterTest {
     @Test
     public void report() {
         ConsoleOutputReporter reporter = new ConsoleOutputReporter();
-        reporter.report("Test", new HashMap<String, Object>());
+        reporter.report("Test", new HashMap</*~~>*/String, Object>());
     }
 }

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassMethodArgumentFilter {
-    private static final String METHOD_NAME_WILDCARD = "*";
+    private static final /*~~>*/String METHOD_NAME_WILDCARD = "*";
 
     private ClassMethodArgument[] classMethodArguments = new ClassMethodArgument[0];
 
@@ -37,7 +37,7 @@ public class ClassMethodArgumentFilter {
         return classMethodArguments.length == 0;
     }
 
-    public boolean matchClass(String className) {
+    public boolean matchClass(/*~~>*/String className) {
         for (ClassMethodArgument classAndMethod : classMethodArguments) {
             if (className.startsWith(classAndMethod.getClassName())) {
                 return true;
@@ -46,7 +46,7 @@ public class ClassMethodArgumentFilter {
         return false;
     }
 
-    public List<Integer> matchMethod(String className, String methodName) {
+    public List<Integer> matchMethod(/*~~>*/String className, /*~~>*/String methodName) {
         List<Integer> result = new ArrayList<>();
 
         for (ClassMethodArgument classMethodArgument : classMethodArguments) {

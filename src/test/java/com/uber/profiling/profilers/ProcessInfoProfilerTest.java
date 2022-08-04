@@ -29,12 +29,12 @@ import java.util.Map;
 public class ProcessInfoProfilerTest {
     @Test
     public void profile() {
-        final List<String> nameList = new ArrayList<>();
-        final List<Map<String, Object>> metricList = new ArrayList<>();
+        final List</*~~>*/String> nameList = new ArrayList<>();
+        final List<Map</*~~>*/String, Object>> metricList = new ArrayList<>();
 
         ProcessInfoProfiler profiler = new ProcessInfoProfiler(new Reporter() {
             @Override
-            public void report(String profilerName, Map<String, Object> metrics) {
+            public void report(/*~~>*/String profilerName, Map</*~~>*/String, Object> metrics) {
                 nameList.add(profilerName);
                 metricList.add(metrics);
             }
@@ -53,7 +53,7 @@ public class ProcessInfoProfilerTest {
         System.out.println(metricList);
         
         Assert.assertTrue(nameList.size() >= 2);
-        Assert.assertEquals(ProcessInfoProfiler.PROFILER_NAME, nameList.get(0));
+        Assert.assertEquals(/*~~>*/ProcessInfoProfiler.PROFILER_NAME, nameList.get(0));
 
         Assert.assertTrue(metricList.size() >= 2);
 

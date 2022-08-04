@@ -34,7 +34,7 @@ public class MethodProfilerStaticProxy {
         argumentCollectorSingleton = collector;
     }
 
-    public static void collectMethodDuration(String className, String methodName, long metricValue) {
+    public static void collectMethodDuration(/*~~>*/String className, /*~~>*/String methodName, long metricValue) {
         if (collectorSingleton == null) {
             return;
         }
@@ -46,13 +46,13 @@ public class MethodProfilerStaticProxy {
         }
     }
 
-    public static void collectMethodArgument(String className, String methodName, int argIndex, Object argValue) {
+    public static void collectMethodArgument(/*~~>*/String className, /*~~>*/String methodName, int argIndex, Object argValue) {
         if (argumentCollectorSingleton == null) {
             return;
         }
 
         try {
-            String argument = "arg." + argIndex + "." + String.valueOf(argValue);
+            /*~~>*/String argument = "arg." + argIndex + "." + /*~~>*/String.valueOf(argValue);
             argumentCollectorSingleton.collectMetric(className, methodName, argument);
         } catch (Throwable ex) {
             ex.printStackTrace();

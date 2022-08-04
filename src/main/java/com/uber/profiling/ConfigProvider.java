@@ -26,5 +26,5 @@ public interface ConfigProvider {
      * for empty tag value contains the default configuration for all profilers.
      * @return
      */
-    Map<String, Map<String, List<String>>> getConfig();
+    Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> getConfig();
 }

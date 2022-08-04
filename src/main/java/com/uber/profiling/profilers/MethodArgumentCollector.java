@@ -25,7 +25,7 @@ public class MethodArgumentCollector {
         this.buffer = buffer;
     }
 
-    public void collectMetric(String className, String methodName, String argument) {
+    public void collectMetric(/*~~>*/String className, /*~~>*/String methodName, /*~~>*/String argument) {
         if (argument == null) {
             argument = "";
         }

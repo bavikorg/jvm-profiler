@@ -25,10 +25,10 @@ import java.util.Map;
 
 public class NoopConfigProvider implements ConfigProvider {
     @Override
-    public Map<String, Map<String, List<String>>> getConfig() {
-        Map<String, Map<String, List<String>>> configMap = new HashMap<>();
+    public Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> getConfig() {
+        Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> configMap = new HashMap<>();
 
-        Map<String, List<String>> values = new HashMap<>();
+        Map</*~~>*/String, List</*~~>*/String>> values = new HashMap<>();
         values.put("noop", Arrays.asList("true"));
 
         configMap.put("", values);

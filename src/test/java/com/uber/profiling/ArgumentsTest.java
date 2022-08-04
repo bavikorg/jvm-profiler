@@ -78,7 +78,7 @@ public class ArgumentsTest {
         Assert.assertEquals(new ClassAndMethod("a.bc", "foo"), arguments.getDurationProfiling().get(0));
         Assert.assertEquals(new ClassAndMethod("ab.c.d", "test"), arguments.getDurationProfiling().get(1));
         Assert.assertEquals(Arguments.DEFAULT_METRIC_INTERVAL, arguments.getMetricInterval());
-        Assert.assertEquals(Arguments.DEFAULT_APP_ID_REGEX, arguments.getAppIdRegex());
+        Assert.assertEquals(/*~~>*/Arguments.DEFAULT_APP_ID_REGEX, arguments.getAppIdRegex());
     }
 
     @Test
@@ -88,7 +88,7 @@ public class ArgumentsTest {
         Assert.assertEquals(new ClassAndMethod("a.bc", "foo"), arguments.getDurationProfiling().get(0));
         Assert.assertEquals(new ClassAndMethod("ab.c.d", "test"), arguments.getDurationProfiling().get(1));
         Assert.assertEquals(Arguments.DEFAULT_METRIC_INTERVAL, arguments.getMetricInterval());
-        Assert.assertEquals(Arguments.DEFAULT_APP_ID_REGEX, arguments.getAppIdRegex());
+        Assert.assertEquals(/*~~>*/Arguments.DEFAULT_APP_ID_REGEX, arguments.getAppIdRegex());
     }
 
     @Test
@@ -181,7 +181,7 @@ public class ArgumentsTest {
     
     public static class DummyReporter implements Reporter {
         @Override
-        public void report(String profilerName, Map<String, Object> metrics) {
+        public void report(/*~~>*/String profilerName, Map</*~~>*/String, Object> metrics) {
         }
 
         @Override
@@ -191,17 +191,17 @@ public class ArgumentsTest {
 
     public static class DummyConfigProvider implements ConfigProvider {
         @Override
-        public Map<String, Map<String, List<String>>> getConfig() {
+        public Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> getConfig() {
             return new HashMap<>();
         }
     }
 
     public static class SimpleConfigProvider implements ConfigProvider {
         @Override
-        public Map<String, Map<String, List<String>>> getConfig() {
-            Map<String, Map<String, List<String>>> configMap = new HashMap<>();
+        public Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> getConfig() {
+            Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> configMap = new HashMap<>();
 
-            Map<String, List<String>> argMap = new HashMap<>();
+            Map</*~~>*/String, List</*~~>*/String>> argMap = new HashMap<>();
             argMap.put("metricInterval", Arrays.asList("9000"));
             argMap.put("ioProfiling", Arrays.asList("false"));
             argMap.put("durationProfiling", Arrays.asList("package.c900.m900", "package.c901.m901"));
@@ -214,10 +214,10 @@ public class ArgumentsTest {
 
     public static class OverrideConfigProvider implements ConfigProvider {
         @Override
-        public Map<String, Map<String, List<String>>> getConfig() {
-            Map<String, Map<String, List<String>>> configMap = new HashMap<>();
+        public Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> getConfig() {
+            Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> configMap = new HashMap<>();
 
-            Map<String, List<String>> argMap = new HashMap<>();
+            Map</*~~>*/String, List</*~~>*/String>> argMap = new HashMap<>();
             argMap.put("metricInterval", Arrays.asList("9000"));
             argMap.put("ioProfiling", Arrays.asList("true"));
             argMap.put("durationProfiling", Arrays.asList("package.c900.m900", "package.c901.m901"));

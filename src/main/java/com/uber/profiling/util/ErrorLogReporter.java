@@ -17,7 +17,7 @@
 package com.uber.profiling.util;
 
 public interface ErrorLogReporter {
-    void report(String message, Throwable exception);
+    void report(/*~~>*/String message, Throwable exception);
 
     void close();
 }

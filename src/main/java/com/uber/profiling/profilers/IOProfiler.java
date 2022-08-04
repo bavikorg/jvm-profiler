@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public class IOProfiler extends ProfilerBase implements Profiler {
-    public final static String PROFILER_NAME = "IO";
+    public final static /*~~>*/String PROFILER_NAME = "IO";
 
     private long intervalMillis = Constants.DEFAULT_METRIC_INTERVAL;
 
@@ -52,15 +52,15 @@ public class IOProfiler extends ProfilerBase implements Profiler {
     @Override
     public synchronized void profile() {
         // See http://man7.org/linux/man-pages/man5/proc.5.html for details about /proc/[pid]/io
-        Map<String, String> procMap = ProcFileUtils.getProcIO();
+        Map</*~~>*/String, /*~~>*/String> procMap = ProcFileUtils.getProcIO();
         Long rchar = ProcFileUtils.getBytesValue(procMap, "rchar");
         Long wchar = ProcFileUtils.getBytesValue(procMap, "wchar");
         Long read_bytes = ProcFileUtils.getBytesValue(procMap, "read_bytes");
         Long write_bytes = ProcFileUtils.getBytesValue(procMap, "write_bytes");
 
-        List<Map<String, Object>> cpuTime = ProcFileUtils.getProcStatCpuTime();
+        List<Map</*~~>*/String, Object>> cpuTime = ProcFileUtils.getProcStatCpuTime();
         
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map</*~~>*/String, Object> map = new HashMap</*~~>*/String, Object>();
 
         map.put("epochMillis", System.currentTimeMillis());
         map.put("name", getProcessName());
@@ -80,10 +80,10 @@ public class IOProfiler extends ProfilerBase implements Profiler {
             map.put("role", getRole());
         }
 
-        Map<String, Object> selfMap = new HashMap<String, Object>();
+        Map</*~~>*/String, Object> selfMap = new HashMap</*~~>*/String, Object>();
         map.put("self", selfMap);
         
-        Map<String, Object> ioMap = new HashMap<String, Object>();
+        Map</*~~>*/String, Object> ioMap = new HashMap</*~~>*/String, Object>();
         selfMap.put("io", ioMap);
 
         ioMap.put("rchar", rchar);

@@ -26,7 +26,7 @@ public class HelloWorldApplication {
      * For example, you could run it with following argument:
      * -javaagent:target/uber-java-agent-0.0.1-jar-with-dependencies.jar=reporter=com.uber.profiling.reporters.ConsoleOutputReporter,tag=tag1,metricInterval=10000,durationProfiling=com.uber.profiling.examples.HelloWorldApplication.*
      */
-    public static void main(String[] args) throws Throwable {
+    public static void main(/*~~>*/String[] args) throws Throwable {
         long totalRunningMillis = 1 * 60 * 1000;
         long sleepMillis = 1000;
 

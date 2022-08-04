@@ -31,14 +31,14 @@ import java.util.List;
 import java.util.Map;
 
 public class ProcessInfoProfiler extends ProfilerBase implements Profiler {
-    public final static String PROFILER_NAME = "ProcessInfo";
+    public final static /*~~>*/String PROFILER_NAME = "ProcessInfo";
 
     private static final AgentLogger logger = AgentLogger.getLogger(ProcessInfoProfiler.class.getName());
 
-    private String jvmInputArguments = "";
-    private String jvmClassPath = "";
+    private /*~~>*/String jvmInputArguments = "";
+    private /*~~>*/String jvmClassPath = "";
     private Long jvmXmxBytes = null;
-    private String cmdline = "";
+    private /*~~>*/String cmdline = "";
 
     private Reporter reporter;
 
@@ -60,9 +60,9 @@ public class ProcessInfoProfiler extends ProfilerBase implements Profiler {
 
     @Override
     public void profile() {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map</*~~>*/String, Object> map = new HashMap</*~~>*/String, Object>();
         
-        map.put("agentVersion", AgentImpl.VERSION);
+        map.put("agentVersion", /*~~>*/AgentImpl.VERSION);
         
         map.put("epochMillis", System.currentTimeMillis());
         map.put("name", getProcessName());
@@ -97,8 +97,8 @@ public class ProcessInfoProfiler extends ProfilerBase implements Profiler {
             map.put("xmxBytes", jvmXmxBytes);
         }
 
-        String jvmInputArgumentsToReport = jvmInputArguments;
-        String jvmClassPathToReport = jvmClassPath;
+        /*~~>*/String jvmInputArgumentsToReport = jvmInputArguments;
+        /*~~>*/String jvmClassPathToReport = jvmClassPath;
         
         // Do not report jvmInputArguments and jvmClassPath if cmdline is not empty.
         // This is because cmdline will contain duplicate information for jvmInputArguments/jvmClassPath.
@@ -116,15 +116,15 @@ public class ProcessInfoProfiler extends ProfilerBase implements Profiler {
                 reporter.report(PROFILER_NAME, map);
             }
         } else {
-            List<String> jvmInputArgumentsFragements = com.uber.profiling.util.StringUtils.splitByLength(jvmInputArgumentsToReport, Constants.MAX_STRING_LENGTH);
-            List<String> jvmClassPathFragements = com.uber.profiling.util.StringUtils.splitByLength(jvmClassPathToReport, Constants.MAX_STRING_LENGTH);
-            List<String> cmdlineFragements = com.uber.profiling.util.StringUtils.splitByLength(cmdline, Constants.MAX_STRING_LENGTH);
+            List</*~~>*/String> jvmInputArgumentsFragements = com.uber.profiling.util.StringUtils.splitByLength(jvmInputArgumentsToReport, Constants.MAX_STRING_LENGTH);
+            List</*~~>*/String> jvmClassPathFragements = com.uber.profiling.util.StringUtils.splitByLength(jvmClassPathToReport, Constants.MAX_STRING_LENGTH);
+            List</*~~>*/String> cmdlineFragements = com.uber.profiling.util.StringUtils.splitByLength(cmdline, Constants.MAX_STRING_LENGTH);
 
             long fragmentSeq = 0;
             long fragmentCount = jvmInputArgumentsFragements.size() + jvmClassPathFragements.size() + cmdlineFragements.size();
 
-            for (String entry : jvmInputArgumentsFragements) {
-                Map<String, Object> fragmentMap = createFragmentMap(map, fragmentSeq++, fragmentCount);
+            for (/*~~>*/String entry : jvmInputArgumentsFragements) {
+                Map</*~~>*/String, Object> fragmentMap = createFragmentMap(map, fragmentSeq++, fragmentCount);
                 fragmentMap.put("jvmInputArguments", entry);
 
                 if (reporter != null) {
@@ -132,8 +132,8 @@ public class ProcessInfoProfiler extends ProfilerBase implements Profiler {
                 }
             }
 
-            for (String entry : jvmClassPathFragements) {
-                Map<String, Object> fragmentMap = createFragmentMap(map, fragmentSeq++, fragmentCount);
+            for (/*~~>*/String entry : jvmClassPathFragements) {
+                Map</*~~>*/String, Object> fragmentMap = createFragmentMap(map, fragmentSeq++, fragmentCount);
                 fragmentMap.put("jvmClassPath", entry);
 
                 if (reporter != null) {
@@ -141,8 +141,8 @@ public class ProcessInfoProfiler extends ProfilerBase implements Profiler {
                 }
             }
 
-            for (String entry : cmdlineFragements) {
-                Map<String, Object> fragmentMap = createFragmentMap(map, fragmentSeq++, fragmentCount);
+            for (/*~~>*/String entry : cmdlineFragements) {
+                Map</*~~>*/String, Object> fragmentMap = createFragmentMap(map, fragmentSeq++, fragmentCount);
                 fragmentMap.put("cmdline", entry);
 
                 if (reporter != null) {
@@ -163,8 +163,8 @@ public class ProcessInfoProfiler extends ProfilerBase implements Profiler {
         }
     }
     
-    private Map<String, Object> createFragmentMap(Map<String, Object> copyFrom, long fragmentSeq, long fragmentCount) {
-        Map<String, Object> fragmentMap = new HashMap<String, Object>(copyFrom);
+    private Map</*~~>*/String, Object> createFragmentMap(Map</*~~>*/String, Object> copyFrom, long fragmentSeq, long fragmentCount) {
+        Map</*~~>*/String, Object> fragmentMap = new HashMap</*~~>*/String, Object>(copyFrom);
         fragmentMap.put("fragmentSeq", fragmentSeq);
         fragmentMap.put("fragmentCount", fragmentCount);
         fragmentMap.put("jvmInputArguments", "");

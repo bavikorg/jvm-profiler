@@ -37,31 +37,31 @@ import java.util.Map;
 public class YamlConfigProvider implements ConfigProvider {
     private static final AgentLogger logger = AgentLogger.getLogger(YamlConfigProvider.class.getName());
     
-    private static final String OVERRIDE_KEY = "override";
+    private static final /*~~>*/String OVERRIDE_KEY = "override";
     
-    private String filePath;
+    private /*~~>*/String filePath;
 
     public YamlConfigProvider() {
     }
     
-    public YamlConfigProvider(String filePath) {
+    public YamlConfigProvider(/*~~>*/String filePath) {
         setFilePath(filePath);
     }
 
-    public void setFilePath(String filePath) {
+    public void setFilePath(/*~~>*/String filePath) {
         if (filePath == null || filePath.isEmpty()) {
             throw new IllegalArgumentException("filePath cannot be null or empty");
         }
         
-        this.filePath = filePath;
+        /*~~>*/this.filePath = filePath;
     }
 
     @Override
-    public Map<String, Map<String, List<String>>> getConfig() {
+    public Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> getConfig() {
         return getConfig(filePath);
     }
     
-    private static Map<String, Map<String, List<String>>> getConfig(String configFilePathOrUrl) {
+    private static Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> getConfig(/*~~>*/String configFilePathOrUrl) {
         if (configFilePathOrUrl == null || configFilePathOrUrl.isEmpty()) {
             logger.warn("Empty YAML config file path");
             return new HashMap<>();
@@ -72,7 +72,7 @@ public class YamlConfigProvider implements ConfigProvider {
         try {
             bytes = new ExponentialBackoffRetryPolicy<byte[]>(3, 100)
                     .attempt(() -> {
-                        String filePathLowerCase = configFilePathOrUrl.toLowerCase();
+                        /*~~>*/String filePathLowerCase = configFilePathOrUrl.toLowerCase();
                         if (filePathLowerCase.startsWith("http://") || filePathLowerCase.startsWith("https://")) {
                             return getHttp(configFilePathOrUrl);
                         } else {
@@ -90,7 +90,7 @@ public class YamlConfigProvider implements ConfigProvider {
             return new HashMap<>();
         }
         
-        Map<String, Map<String, List<String>>> result = new HashMap<>();
+        Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> result = new HashMap<>();
         
         try {
             try (ByteArrayInputStream stream = new ByteArrayInputStream(bytes)) {
@@ -107,7 +107,7 @@ public class YamlConfigProvider implements ConfigProvider {
                 Map overrideMap = null;
                 
                 for (Object key : yamlMap.keySet()) {
-                    String configKey = key.toString();
+                    /*~~>*/String configKey = key.toString();
                     Object valueObj = yamlMap.get(key);
                     if (valueObj == null) {
                         continue;
@@ -126,7 +126,7 @@ public class YamlConfigProvider implements ConfigProvider {
                 
                 if (overrideMap != null) {
                     for (Object key : overrideMap.keySet()) {
-                        String overrideKey = key.toString();
+                        /*~~>*/String overrideKey = key.toString();
                         Object valueObj = overrideMap.get(key);
                         if (valueObj == null) {
                             continue;
@@ -142,7 +142,7 @@ public class YamlConfigProvider implements ConfigProvider {
                             if (entry.getValue() == null) {
                                 continue;
                             }
-                            String configKey = entry.getKey().toString();
+                            /*~~>*/String configKey = entry.getKey().toString();
                             addConfig(result, overrideKey, configKey, entry.getValue());
                         }
                     }
@@ -156,36 +156,36 @@ public class YamlConfigProvider implements ConfigProvider {
         }
     }
     
-    private static void addConfig(Map<String, Map<String, List<String>>> config, String override, String key, Object value) {
-        Map<String, List<String>> configMap = config.computeIfAbsent(override, k -> new HashMap<>());
+    private static void addConfig(Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> config, /*~~>*/String override, /*~~>*/String key, Object value) {
+        Map</*~~>*/String, List</*~~>*/String>> configMap = config.computeIfAbsent(override, k -> new HashMap<>());
         
         if (value instanceof List) {
-            List<String> configValueList = configMap.computeIfAbsent(key, k -> new ArrayList<>());
+            List</*~~>*/String> configValueList = configMap.computeIfAbsent(key, k -> new ArrayList<>());
             for (Object entry : (List)value) {
                 configValueList.add(entry.toString());
             }
         } else if (value instanceof Object[]) {
-            List<String> configValueList = configMap.computeIfAbsent(key, k -> new ArrayList<>());      
+            List</*~~>*/String> configValueList = configMap.computeIfAbsent(key, k -> new ArrayList<>());      
             for (Object entry : (Object[])value) {
                 configValueList.add(entry.toString());
             }
          } else if (value instanceof Map) {
             for (Object mapKey : ((Map)value).keySet()) {
-                String propKey = mapKey.toString();
+                /*~~>*/String propKey = mapKey.toString();
                 Object propValue = ((Map)value).get(propKey);
                 if (propValue != null) {
                     addConfig(config, override, key + "." + propKey, propValue);
                  }
             }
         } else {
-            List<String> configValueList = configMap.computeIfAbsent(key, k -> new ArrayList<>());
+            List</*~~>*/String> configValueList = configMap.computeIfAbsent(key, k -> new ArrayList<>());
             configValueList.add(value.toString());
         }
     }
 
-    private static byte[] getHttp(String url) {
+    private static byte[] getHttp(/*~~>*/String url) {
         try {
-            logger.debug(String.format("Getting url: %s", url));
+            logger.debug(/*~~>*/String.format("Getting url: %s", url));
             try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
                 HttpGet httpGet = new HttpGet(url);
                 try (CloseableHttpResponse httpResponse = httpClient.execute(httpGet)) {

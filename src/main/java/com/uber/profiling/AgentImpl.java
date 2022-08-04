@@ -49,7 +49,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class AgentImpl {
-    public static final String VERSION = "1.0.0";
+    public static final /*~~>*/String VERSION = "1.0.0";
     
     private static final AgentLogger logger = AgentLogger.getLogger(AgentImpl.class.getName());
 
@@ -65,11 +65,11 @@ public class AgentImpl {
         
         Reporter reporter = arguments.getReporter();
 
-        String processUuid = UUID.randomUUID().toString();
+        /*~~>*/String processUuid = UUID.randomUUID().toString();
 
-        String appId = null;
+        /*~~>*/String appId = null;
         
-        String appIdVariable = arguments.getAppIdVariable();
+        /*~~>*/String appIdVariable = arguments.getAppIdVariable();
         if (appIdVariable != null && !appIdVariable.isEmpty()) {
             appId = System.getenv(appIdVariable);
         }
@@ -83,10 +83,10 @@ public class AgentImpl {
             instrumentation.addTransformer(new JavaAgentFileTransformer(arguments.getDurationProfiling(),
                     arguments.getArgumentProfiling()), true);
 
-            Set<String> loadedClasses = Arrays.stream(instrumentation.getAllLoadedClasses())
+            Set</*~~>*/String> loadedClasses = Arrays.stream(instrumentation.getAllLoadedClasses())
                     .map(Class::getName).collect(Collectors.toSet());
 
-            Set<String> tobeReloadClasses = arguments.getDurationProfiling().stream()
+            Set</*~~>*/String> tobeReloadClasses = arguments.getDurationProfiling().stream()
                     .map(ClassAndMethod::getClassName).collect(Collectors.toSet());
 
             tobeReloadClasses.addAll(arguments.getArgumentProfiling().stream()
@@ -127,7 +127,7 @@ public class AgentImpl {
             } else if (profiler.getIntervalMillis() > 0) {
                 periodicProfilers.add(profiler);
             } else {
-                logger.log(String.format("Ignored profiler %s due to its invalid interval %s", profiler, profiler.getIntervalMillis()));
+                logger.log(/*~~>*/String.format("Ignored profiler %s due to its invalid interval %s", profiler, profiler.getIntervalMillis()));
             }
         }
 
@@ -155,9 +155,9 @@ public class AgentImpl {
         return new ProfilerGroup(oneTimeProfilers, periodicProfilers);
     }
 
-    private List<Profiler> createProfilers(Reporter reporter, Arguments arguments, String processUuid, String appId) {
-        String tag = arguments.getTag();
-        String cluster = arguments.getCluster();
+    private List<Profiler> createProfilers(Reporter reporter, Arguments arguments, /*~~>*/String processUuid, /*~~>*/String appId) {
+        /*~~>*/String tag = arguments.getTag();
+        /*~~>*/String cluster = arguments.getCluster();
         long metricInterval = arguments.getMetricInterval();
 
         List<Profiler> profilers = new ArrayList<>();
@@ -225,7 +225,7 @@ public class AgentImpl {
         if (arguments.getSampleInterval() > 0) {
             StacktraceMetricBuffer stacktraceMetricBuffer = new StacktraceMetricBuffer();
 
-            StacktraceCollectorProfiler stacktraceCollectorProfiler = new StacktraceCollectorProfiler(stacktraceMetricBuffer, AgentThreadFactory.NAME_PREFIX);
+            StacktraceCollectorProfiler stacktraceCollectorProfiler = new StacktraceCollectorProfiler(stacktraceMetricBuffer, /*~~>*/AgentThreadFactory.NAME_PREFIX);
             stacktraceCollectorProfiler.setIntervalMillis(arguments.getSampleInterval());
                     
             StacktraceReporterProfiler stacktraceReporterProfiler = new StacktraceReporterProfiler(stacktraceMetricBuffer, reporter);
@@ -264,7 +264,7 @@ public class AgentImpl {
             
             ProfilerRunner worker = new ProfilerRunner(profiler);
             scheduledExecutorService.scheduleAtFixedRate(worker, 0, profiler.getIntervalMillis(), TimeUnit.MILLISECONDS);
-            logger.info(String.format("Scheduled profiler %s with interval %s millis", profiler, profiler.getIntervalMillis()));
+            logger.info(/*~~>*/String.format("Scheduled profiler %s with interval %s millis", profiler, profiler.getIntervalMillis()));
         }
     }
 }

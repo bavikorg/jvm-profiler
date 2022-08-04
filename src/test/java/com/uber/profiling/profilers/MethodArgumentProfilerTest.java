@@ -29,8 +29,8 @@ import java.util.stream.Collectors;
 public class MethodArgumentProfilerTest {
     @Test
     public void profile() {
-        final List<String> nameList = new ArrayList<>();
-        final List<Map<String, Object>> metricList = new ArrayList<>();
+        final List</*~~>*/String> nameList = new ArrayList<>();
+        final List<Map</*~~>*/String, Object>> metricList = new ArrayList<>();
 
         ClassMethodArgumentMetricBuffer buffer = new ClassMethodArgumentMetricBuffer();
 
@@ -38,7 +38,7 @@ public class MethodArgumentProfilerTest {
 
         Reporter reporter = new Reporter() {
             @Override
-            public void report(String profilerName, Map<String, Object> metrics) {
+            public void report(/*~~>*/String profilerName, Map</*~~>*/String, Object> metrics) {
                 nameList.add(profilerName);
                 metricList.add(metrics);
             }
@@ -60,11 +60,11 @@ public class MethodArgumentProfilerTest {
         profiler.profile();
 
         Assert.assertEquals(2, nameList.size());
-        Assert.assertEquals(MethodArgumentProfiler.PROFILER_NAME, nameList.get(0));
+        Assert.assertEquals(/*~~>*/MethodArgumentProfiler.PROFILER_NAME, nameList.get(0));
 
         Assert.assertEquals(2, metricList.size());
 
-        List<Map<String, Object>> metricsToCheck = metricList.stream().filter(t ->
+        List<Map</*~~>*/String, Object>> metricsToCheck = metricList.stream().filter(t ->
                 t.get("className").equals("class1")
                         && t.get("methodName").equals("method1")
                         && t.get("metricName").equals("arg1"))

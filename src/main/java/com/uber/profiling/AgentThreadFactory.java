@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 public class AgentThreadFactory implements ThreadFactory {
-    public static final String NAME_PREFIX = "uber_java_agent";
+    public static final /*~~>*/String NAME_PREFIX = "uber_java_agent";
 
     private final ThreadFactory defaultThreadFactory = Executors.defaultThreadFactory();
 
@@ -29,7 +29,7 @@ public class AgentThreadFactory implements ThreadFactory {
         Thread thread = defaultThreadFactory.newThread(r);
         if (thread != null) {
             thread.setDaemon(true);
-            thread.setName(String.format("%s-%s", NAME_PREFIX, thread.getName()));
+            thread.setName(/*~~>*/String.format("%s-%s", NAME_PREFIX, thread.getName()));
         }
 
         return thread;

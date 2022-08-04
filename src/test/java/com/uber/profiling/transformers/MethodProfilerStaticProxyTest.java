@@ -64,7 +64,7 @@ public class MethodProfilerStaticProxyTest {
             sb.append('a');
         }
         sb.append('b');
-        String veryLongValue = sb.toString();
+        /*~~>*/String veryLongValue = sb.toString();
         
         MethodProfilerStaticProxy.collectMethodArgument("class1", "method1", 1, veryLongValue);
         MethodProfilerStaticProxy.collectMethodArgument("class1", "method1", 1, veryLongValue);

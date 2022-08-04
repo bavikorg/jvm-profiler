@@ -19,24 +19,24 @@ package com.uber.profiling.util;
 import java.util.Arrays;
 
 public class Stacktrace {
-    private String threadName;
-    private String threadState;
+    private /*~~>*/String threadName;
+    private /*~~>*/String threadState;
     private ClassAndMethod[] stack = new ClassAndMethod[0];
 
-    public String getThreadName() {
+    public /*~~>*/String getThreadName() {
         return threadName;
     }
 
-    public void setThreadName(String threadName) {
-        this.threadName = threadName;
+    public void setThreadName(/*~~>*/String threadName) {
+        /*~~>*/this.threadName = threadName;
     }
 
-    public String getThreadState() {
+    public /*~~>*/String getThreadState() {
         return threadState;
     }
 
-    public void setThreadState(String threadState) {
-        this.threadState = threadState;
+    public void setThreadState(/*~~>*/String threadState) {
+        /*~~>*/this.threadState = threadState;
     }
 
     public ClassAndMethod[] getStack() {
@@ -58,8 +58,8 @@ public class Stacktrace {
 
         Stacktrace that = (Stacktrace) o;
 
-        if (threadName != null ? !threadName.equals(that.threadName) : that.threadName != null) return false;
-        if (threadState != null ? !threadState.equals(that.threadState) : that.threadState != null) return false;
+        if (threadName != null ? !threadName.equals(/*~~>*/that.threadName) : /*~~>*/that.threadName != null) return false;
+        if (threadState != null ? !threadState.equals(/*~~>*/that.threadState) : /*~~>*/that.threadState != null) return false;
         
         return Arrays.equals(stack, that.stack);
     }

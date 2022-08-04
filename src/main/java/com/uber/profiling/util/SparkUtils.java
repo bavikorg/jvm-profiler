@@ -22,20 +22,20 @@ import java.util.List;
 
 public class SparkUtils {
     // Try to get application ID by match regex in class path or system property
-    public static String probeAppId(String appIdRegex) {
-        String appId = System.getProperty("spark.app.id");
+    public static /*~~>*/String probeAppId(/*~~>*/String appIdRegex) {
+        /*~~>*/String appId = System.getProperty("spark.app.id");
 
         if (appId == null || appId.isEmpty()) {
-            String classPath = ProcessUtils.getJvmClassPath();
-            List<String> appIdCandidates = StringUtils.extractByRegex(classPath, appIdRegex);
+            /*~~>*/String classPath = ProcessUtils.getJvmClassPath();
+            List</*~~>*/String> appIdCandidates = StringUtils.extractByRegex(classPath, appIdRegex);
             if (!appIdCandidates.isEmpty()) {
                 appId = appIdCandidates.get(0);
             }
         }
 
         if (appId == null || appId.isEmpty()) {
-            for (String entry : ProcessUtils.getJvmInputArguments()) {
-                List<String> appIdCandidates = StringUtils.extractByRegex(entry, appIdRegex);
+            for (/*~~>*/String entry : ProcessUtils.getJvmInputArguments()) {
+                List</*~~>*/String> appIdCandidates = StringUtils.extractByRegex(entry, appIdRegex);
                 if (!appIdCandidates.isEmpty()) {
                     appId = appIdCandidates.get(0);
                     break;
@@ -47,10 +47,10 @@ public class SparkUtils {
     }
     
     // Get application ID by invoking SparkEnv
-    public static String getSparkEnvAppId() {
+    public static /*~~>*/String getSparkEnvAppId() {
         // Do not use "org.apache.spark.SparkEnv" directly because the maven shade plugin will convert 
         // the class name to ja_shaded.org.apache.spark.SparkEnv due to relocation.
-        String className = org.apache.commons.lang3.StringUtils.joinWith(
+        /*~~>*/String className = org.apache.commons.lang3.StringUtils.joinWith(
                 ".", 
                 "org",
                 "apache",
@@ -69,11 +69,11 @@ public class SparkUtils {
         }
     }
 
-    public static String probeRole(String cmdline) {
+    public static /*~~>*/String probeRole(/*~~>*/String cmdline) {
         if (ProcessUtils.isSparkExecutor(cmdline)) {
-            return Constants.EXECUTOR_ROLE;
+            return /*~~>*/Constants.EXECUTOR_ROLE;
         } else if (ProcessUtils.isSparkDriver(cmdline)) {
-            return Constants.DRIVER_ROLE;
+            return /*~~>*/Constants.DRIVER_ROLE;
         } else {
             return null;
         }
@@ -81,7 +81,7 @@ public class SparkUtils {
     
     public static SparkAppCmdInfo probeCmdInfo() {
         // TODO use /proc file system to get command when the system property is not available
-        String cmd = System.getProperty("sun.java.command");
+        /*~~>*/String cmd = System.getProperty("sun.java.command");
         if (cmd == null || cmd.isEmpty()) {
             return null;
         }

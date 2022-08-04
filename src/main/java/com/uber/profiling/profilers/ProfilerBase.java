@@ -24,71 +24,71 @@ import com.uber.profiling.util.SparkUtils;
 import java.util.UUID;
 
 public class ProfilerBase {
-    private String tag = null;
-    private String cluster = null;
-    private String hostName = null;
-    private String processName = null;
-    private String processUuid = UUID.randomUUID().toString();
+    private /*~~>*/String tag = null;
+    private /*~~>*/String cluster = null;
+    private /*~~>*/String hostName = null;
+    private /*~~>*/String processName = null;
+    private /*~~>*/String processUuid = UUID.randomUUID().toString();
 
-    private String jobId = null;
-    private String appId = null;
+    private /*~~>*/String jobId = null;
+    private /*~~>*/String appId = null;
 
-    private String role = null;
+    private /*~~>*/String role = null;
     
     public ProfilerBase() {
         setHostName(NetworkUtils.getLocalHostName());
         setProcessName(ProcessUtils.getCurrentProcessName());
     }
 
-    public String getTag() {
+    public /*~~>*/String getTag() {
         return tag;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTag(/*~~>*/String tag) {
+        /*~~>*/this.tag = tag;
     }
 
-    public String getCluster() {
+    public /*~~>*/String getCluster() {
         return cluster;
     }
 
-    public void setCluster(String cluster) {
-        this.cluster = cluster;
+    public void setCluster(/*~~>*/String cluster) {
+        /*~~>*/this.cluster = cluster;
     }
 
-    public String getHostName() {
+    public /*~~>*/String getHostName() {
         return hostName;
     }
 
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
+    public void setHostName(/*~~>*/String hostName) {
+        /*~~>*/this.hostName = hostName;
     }
 
-    public String getProcessName() {
+    public /*~~>*/String getProcessName() {
         return processName;
     }
 
-    public void setProcessName(String processName) {
-        this.processName = processName;
+    public void setProcessName(/*~~>*/String processName) {
+        /*~~>*/this.processName = processName;
     }
 
-    public String getProcessUuid() {
+    public /*~~>*/String getProcessUuid() {
         return processUuid;
     }
 
-    public void setProcessUuid(String processUuid) {
-        this.processUuid = processUuid;
+    public void setProcessUuid(/*~~>*/String processUuid) {
+        /*~~>*/this.processUuid = processUuid;
     }
 
-    public String getJobId() {
+    public /*~~>*/String getJobId() {
         return jobId;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId;
+    public void setJobId(/*~~>*/String jobId) {
+        /*~~>*/this.jobId = jobId;
     }
 
-    public String getAppId() {
+    public /*~~>*/String getAppId() {
         if (appId != null && !appId.isEmpty()) {
             return appId;
         }
@@ -97,20 +97,20 @@ public class ProfilerBase {
         return appId;
     }
 
-    public void setAppId(String appId) {
-        this.appId = appId;
+    public void setAppId(/*~~>*/String appId) {
+        /*~~>*/this.appId = appId;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(/*~~>*/String role) {
+        /*~~>*/this.role = role;
     }
 
-    public String getRole() {
+    public /*~~>*/String getRole() {
         if (role != null && !role.isEmpty()) {
             return role;
         }
         
-        String cmdline = ProcFileUtils.getCmdline();
+        /*~~>*/String cmdline = ProcFileUtils.getCmdline();
         role = SparkUtils.probeRole(cmdline);
         return role;
     }

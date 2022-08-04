@@ -11,13 +11,13 @@ import java.util.Map;
 public class ThreadInfoProfilerTest {
     @Test
     public void profile() {
-        final List<String> nameList = new ArrayList<>();
-        final List<Map<String, Object>> metricList = new ArrayList<>();
+        final List</*~~>*/String> nameList = new ArrayList<>();
+        final List<Map</*~~>*/String, Object>> metricList = new ArrayList<>();
 
         // create a Profile Instance.
         ThreadInfoProfiler profiler = new ThreadInfoProfiler(new Reporter() {
             @Override
-            public void report(String profilerName, Map<String, Object> metrics) {
+            public void report(/*~~>*/String profilerName, Map</*~~>*/String, Object> metrics) {
                 nameList.add(profilerName);
                 metricList.add(metrics);
             }
@@ -37,7 +37,7 @@ public class ThreadInfoProfilerTest {
 
         //start assertion.
         Assert.assertEquals(2, nameList.size());
-        Assert.assertEquals(ThreadInfoProfiler.PROFILER_NAME, nameList.get(0));
+        Assert.assertEquals(/*~~>*/ThreadInfoProfiler.PROFILER_NAME, nameList.get(0));
 
         Assert.assertEquals(2, metricList.size());
         Assert.assertTrue(metricList.get(0).containsKey("totalStartedThreadCount"));

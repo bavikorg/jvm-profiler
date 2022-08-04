@@ -17,10 +17,10 @@
 package com.uber.profiling.util;
 
 public class ClassAndMethod {
-    private final String className;
-    private final String methodName;
+    private final /*~~>*/String className;
+    private final /*~~>*/String methodName;
 
-    public ClassAndMethod(String className, String methodName) {
+    public ClassAndMethod(/*~~>*/String className, /*~~>*/String methodName) {
         if (className == null) {
             throw new NullPointerException("className");
         }
@@ -29,15 +29,15 @@ public class ClassAndMethod {
             throw new NullPointerException("methodName");
         }
 
-        this.className = className;
-        this.methodName = methodName;
+        /*~~>*/this.className = className;
+        /*~~>*/this.methodName = methodName;
     }
 
-    public String getClassName() {
+    public /*~~>*/String getClassName() {
         return className;
     }
 
-    public String getMethodName() {
+    public /*~~>*/String getMethodName() {
         return methodName;
     }
 
@@ -48,8 +48,8 @@ public class ClassAndMethod {
 
         ClassAndMethod that = (ClassAndMethod) o;
 
-        if (className != null ? !className.equals(that.className) : that.className != null) return false;
-        return methodName != null ? methodName.equals(that.methodName) : that.methodName == null;
+        if (className != null ? !className.equals(/*~~>*/that.className) : /*~~>*/that.className != null) return false;
+        return methodName != null ? methodName.equals(/*~~>*/that.methodName) : /*~~>*/that.methodName == null;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ClassAndMethod {
     }
 
     @Override
-    public String toString() {
+    public /*~~>*/String toString() {
         return className + '.' + methodName;
     }
 }

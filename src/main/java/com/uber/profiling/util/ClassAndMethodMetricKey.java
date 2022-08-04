@@ -17,25 +17,25 @@
 package com.uber.profiling.util;
 
 public class ClassAndMethodMetricKey {
-    private final String className;
-    private final String methodName;
-    private final String metricName;
+    private final /*~~>*/String className;
+    private final /*~~>*/String methodName;
+    private final /*~~>*/String metricName;
 
-    public ClassAndMethodMetricKey(String className, String methodName, String metricName) {
-        this.className = className;
-        this.methodName = methodName;
-        this.metricName = metricName;
+    public ClassAndMethodMetricKey(/*~~>*/String className, /*~~>*/String methodName, /*~~>*/String metricName) {
+        /*~~>*/this.className = className;
+        /*~~>*/this.methodName = methodName;
+        /*~~>*/this.metricName = metricName;
     }
 
-    public String getClassName() {
+    public /*~~>*/String getClassName() {
         return className;
     }
 
-    public String getMethodName() {
+    public /*~~>*/String getMethodName() {
         return methodName;
     }
 
-    public String getMetricName() {
+    public /*~~>*/String getMetricName() {
         return metricName;
     }
 
@@ -46,9 +46,9 @@ public class ClassAndMethodMetricKey {
 
         ClassAndMethodMetricKey that = (ClassAndMethodMetricKey) o;
 
-        if (className != null ? !className.equals(that.className) : that.className != null) return false;
-        if (methodName != null ? !methodName.equals(that.methodName) : that.methodName != null) return false;
-        return metricName != null ? metricName.equals(that.metricName) : that.metricName == null;
+        if (className != null ? !className.equals(/*~~>*/that.className) : /*~~>*/that.className != null) return false;
+        if (methodName != null ? !methodName.equals(/*~~>*/that.methodName) : /*~~>*/that.methodName != null) return false;
+        return metricName != null ? metricName.equals(/*~~>*/that.metricName) : /*~~>*/that.metricName == null;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class ClassAndMethodMetricKey {
     }
 
     @Override
-    public String toString() {
+    public /*~~>*/String toString() {
         return className + '.' + methodName + " " + metricName;
     }
 }

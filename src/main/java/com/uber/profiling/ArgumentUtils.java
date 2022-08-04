@@ -22,16 +22,16 @@ import java.util.Map;
 
 public class ArgumentUtils {
 
-    public static boolean needToUpdateArg(String argValue) {
+    public static boolean needToUpdateArg(/*~~>*/String argValue) {
         return argValue != null && !argValue.isEmpty();
     }
 
-    public static boolean needToUpdateRollingArg(String enableRolling) {
+    public static boolean needToUpdateRollingArg(/*~~>*/String enableRolling) {
         return enableRolling != null && !enableRolling.isEmpty() && Boolean.parseBoolean(enableRolling);
     }
 
-    public static String getArgumentSingleValue(Map<String, List<String>> parsedArgs, String argName) {
-        List<String> list = parsedArgs.get(argName);
+    public static /*~~>*/String getArgumentSingleValue(Map</*~~>*/String, List</*~~>*/String>> parsedArgs, /*~~>*/String argName) {
+        List</*~~>*/String> list = parsedArgs.get(argName);
         if (list == null) {
             return null;
         }
@@ -43,8 +43,8 @@ public class ArgumentUtils {
         return list.get(list.size() - 1);
     }
 
-    public static List<String> getArgumentMultiValues(Map<String, List<String>> parsedArgs, String argName) {
-        List<String> list = parsedArgs.get(argName);
+    public static List</*~~>*/String> getArgumentMultiValues(Map</*~~>*/String, List</*~~>*/String>> parsedArgs, /*~~>*/String argName) {
+        List</*~~>*/String> list = parsedArgs.get(argName);
         if (list == null) {
             return new ArrayList<>();
         }

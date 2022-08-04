@@ -20,9 +20,9 @@ import java.net.InetAddress;
 import java.util.Map;
 
 public class NetworkUtils {
-    public static String getLocalHostName() {
+    public static /*~~>*/String getLocalHostName() {
         try {
-            Map<String, String> env = System.getenv();
+            Map</*~~>*/String, /*~~>*/String> env = System.getenv();
             if (env.containsKey("COMPUTERNAME"))
                 return env.get("COMPUTERNAME");
             else if (env.containsKey("HOSTNAME"))
@@ -34,7 +34,7 @@ public class NetworkUtils {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(/*~~>*/String[] args) {
         System.out.println(getLocalHostName());
     }
 }

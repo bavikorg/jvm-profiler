@@ -54,8 +54,8 @@ public class ClassMethodArgmentMetricBufferTest {
     public void appendValue_concurrent() throws InterruptedException {
         ClassMethodArgumentMetricBuffer buffer = new ClassMethodArgumentMetricBuffer();
 
-        String[] classNames = new String[]{"class1", "class2", "class1", "class2", "class101"};
-        String[] methodNames = new String[]{"method1", "method2", "method1", "method3", "method101"};
+        /*~~>*/String[] classNames = new /*~~>*/String[]{"class1", "class2", "class1", "class2", "class101"};
+        /*~~>*/String[] methodNames = new /*~~>*/String[]{"method1", "method2", "method1", "method3", "method101"};
 
         Thread[] threads = new Thread[classNames.length];
 

@@ -21,6 +21,6 @@ public class Constants {
 
     public static final int MAX_STRING_LENGTH = 800000;
 
-    public final static String EXECUTOR_ROLE = "executor";
-    public final static String DRIVER_ROLE = "driver";
+    public final static /*~~>*/String EXECUTOR_ROLE = "executor";
+    public final static /*~~>*/String DRIVER_ROLE = "driver";
 }

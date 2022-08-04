@@ -27,12 +27,12 @@ import java.util.Map;
 public class CpuAndMemoryProfilerTest {
     @Test
     public void profile() {
-        final List<String> nameList = new ArrayList<>();
-        final List<Map<String, Object>> metricList = new ArrayList<>();
+        final List</*~~>*/String> nameList = new ArrayList<>();
+        final List<Map</*~~>*/String, Object>> metricList = new ArrayList<>();
 
         CpuAndMemoryProfiler profiler = new CpuAndMemoryProfiler(new Reporter() {
             @Override
-            public void report(String profilerName, Map<String, Object> metrics) {
+            public void report(/*~~>*/String profilerName, Map</*~~>*/String, Object> metrics) {
                 nameList.add(profilerName);
                 metricList.add(metrics);
             }
@@ -49,7 +49,7 @@ public class CpuAndMemoryProfilerTest {
         profiler.profile();
 
         Assert.assertEquals(2, nameList.size());
-        Assert.assertEquals(CpuAndMemoryProfiler.PROFILER_NAME, nameList.get(0));
+        Assert.assertEquals(/*~~>*/CpuAndMemoryProfiler.PROFILER_NAME, nameList.get(0));
 
         Assert.assertEquals(2, metricList.size());
         Assert.assertTrue(metricList.get(0).containsKey("processUuid"));
@@ -60,7 +60,7 @@ public class CpuAndMemoryProfilerTest {
         Object obj = metricList.get(0).get("gc");
         Assert.assertTrue(obj instanceof List);
 
-        List<Map<String, Object>> gcMetrics = (List<Map<String, Object>>) obj;
+        List<Map</*~~>*/String, Object>> gcMetrics = (List<Map</*~~>*/String, Object>>) obj;
         Assert.assertTrue(gcMetrics.size() >= 1);
     }
 }

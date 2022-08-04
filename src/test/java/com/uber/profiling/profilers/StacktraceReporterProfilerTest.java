@@ -30,12 +30,12 @@ import java.util.Map;
 public class StacktraceReporterProfilerTest {
     @Test
     public void profile() {
-        final List<String> nameList = new ArrayList<>();
-        final List<Map<String, Object>> metricList = new ArrayList<>();
+        final List</*~~>*/String> nameList = new ArrayList<>();
+        final List<Map</*~~>*/String, Object>> metricList = new ArrayList<>();
 
         Reporter reporter = new Reporter() {
             @Override
-            public void report(String profilerName, Map<String, Object> metrics) {
+            public void report(/*~~>*/String profilerName, Map</*~~>*/String, Object> metrics) {
                 nameList.add(profilerName);
                 metricList.add(metrics);
             }
@@ -69,7 +69,7 @@ public class StacktraceReporterProfilerTest {
         
         Assert.assertEquals(1, metricList.size());
         
-        Map<String, Object> map = metricList.get(0);
+        Map</*~~>*/String, Object> map = metricList.get(0);
         
         Assert.assertTrue((long)map.get("startEpoch") >= epochMillis1);
         Assert.assertTrue((long)map.get("startEpoch") <= epochMillis2);
@@ -79,7 +79,7 @@ public class StacktraceReporterProfilerTest {
         Assert.assertEquals(1L, (long)map.get("count"));
         Assert.assertNull(map.get("threadName"));
         Assert.assertNull(map.get("threadState"));
-        Assert.assertArrayEquals(new String[0], ((ArrayList<String>)map.get("stacktrace")).toArray(new String[0]));
+        Assert.assertArrayEquals(new /*~~>*/String[0], ((ArrayList</*~~>*/String>)map.get("stacktrace")).toArray(new /*~~>*/String[0]));
 
         stacktrace = new Stacktrace();
         stacktrace.setThreadName("thread1");
@@ -102,6 +102,6 @@ public class StacktraceReporterProfilerTest {
         Assert.assertEquals(2L, (long)map.get("count"));
         Assert.assertEquals("thread1", map.get("threadName"));
         Assert.assertEquals("RUNNING", map.get("threadState"));
-        Assert.assertArrayEquals(new String[]{"class1.method1", "class2.method2"}, ((ArrayList<String>) map.get("stacktrace")).toArray(new String[0]));
+        Assert.assertArrayEquals(new /*~~>*/String[]{"class1.method1", "class2.method2"}, ((ArrayList</*~~>*/String>) map.get("stacktrace")).toArray(new /*~~>*/String[0]));
     }
 }

@@ -38,34 +38,34 @@ public class JsonUtils {
         return mapper;
     }
 
-    public static String serialize(Object obj) {
+    public static /*~~>*/String serialize(Object obj) {
         if (obj == null) {
             return "";
         }
         try {
             return mapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(String.format("Failed to serialize %s (%s)", obj, obj.getClass()), e);
+            throw new RuntimeException(/*~~>*/String.format("Failed to serialize %s (%s)", obj, obj.getClass()), e);
         }
     }
 
 
-    public static <T> T deserialize(String content, Class<T> valueType) {
+    public static <T> T deserialize(/*~~>*/String content, Class<T> valueType) {
         try {
             return mapper.readValue(content, valueType);
         } catch (IOException e) {
             throw new RuntimeException(
-                String.format("Failed to deserialize %s from json %s", valueType, content), e);
+                /*~~>*/String.format("Failed to deserialize %s from json %s", valueType, content), e);
         }
     }
 
     // For example: JsonUtils.deserialize(responseBody, new TypeReference<List<Xxx>>() {})
-    public static <T> T deserialize(String content, TypeReference<T> valueTypeRef) {
+    public static <T> T deserialize(/*~~>*/String content, TypeReference<T> valueTypeRef) {
         try {
             return mapper.readValue(content, valueTypeRef);
         } catch (IOException ex) {
             throw new RuntimeException(
-                String.format("Failed to deserialize %s from json %s", valueTypeRef, content), ex);
+                /*~~>*/String.format("Failed to deserialize %s from json %s", valueTypeRef, content), ex);
         }
     }
 }

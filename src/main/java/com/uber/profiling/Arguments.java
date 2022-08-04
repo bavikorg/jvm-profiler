@@ -31,55 +31,55 @@ import java.util.List;
 import java.util.Map;
 
 public class Arguments {
-    public final static String DEFAULT_APP_ID_REGEX = "application_[\\w_]+";
+    public final static /*~~>*/String DEFAULT_APP_ID_REGEX = "application_[\\w_]+";
     public final static long DEFAULT_METRIC_INTERVAL = 60000;
     public final static long DEFAULT_SAMPLE_INTERVAL = 100;
 
-    public final static String ARG_NOOP = "noop";
-    public final static String ARG_REPORTER = "reporter";
-    public final static String ARG_CONFIG_PROVIDER = "configProvider";
-    public final static String ARG_CONFIG_FILE = "configFile";
-    public final static String ARG_METRIC_INTERVAL = "metricInterval";
-    public final static String ARG_SAMPLE_INTERVAL = "sampleInterval";
-    public final static String ARG_TAG = "tag";
-    public final static String ARG_CLUSTER = "cluster";
-    public final static String ARG_APP_ID_VARIABLE = "appIdVariable";
-    public final static String ARG_APP_ID_REGEX = "appIdRegex";
-    public final static String ARG_THREAD_PROFILING = "threadProfiling";
-    public final static String ARG_DURATION_PROFILING = "durationProfiling";
-    public final static String ARG_ARGUMENT_PROFILING = "argumentProfiling";
+    public final static /*~~>*/String ARG_NOOP = "noop";
+    public final static /*~~>*/String ARG_REPORTER = "reporter";
+    public final static /*~~>*/String ARG_CONFIG_PROVIDER = "configProvider";
+    public final static /*~~>*/String ARG_CONFIG_FILE = "configFile";
+    public final static /*~~>*/String ARG_METRIC_INTERVAL = "metricInterval";
+    public final static /*~~>*/String ARG_SAMPLE_INTERVAL = "sampleInterval";
+    public final static /*~~>*/String ARG_TAG = "tag";
+    public final static /*~~>*/String ARG_CLUSTER = "cluster";
+    public final static /*~~>*/String ARG_APP_ID_VARIABLE = "appIdVariable";
+    public final static /*~~>*/String ARG_APP_ID_REGEX = "appIdRegex";
+    public final static /*~~>*/String ARG_THREAD_PROFILING = "threadProfiling";
+    public final static /*~~>*/String ARG_DURATION_PROFILING = "durationProfiling";
+    public final static /*~~>*/String ARG_ARGUMENT_PROFILING = "argumentProfiling";
     
-    public final static String ARG_IO_PROFILING = "ioProfiling";
+    public final static /*~~>*/String ARG_IO_PROFILING = "ioProfiling";
 
     public static final long MIN_INTERVAL_MILLIS = 50;
 
     private static final AgentLogger logger = AgentLogger.getLogger(Arguments.class.getName());
 
-    private Map<String, List<String>> rawArgValues = new HashMap<>();
+    private Map</*~~>*/String, List</*~~>*/String>> rawArgValues = new HashMap<>();
 
     private boolean noop = false;
     
     private Constructor<Reporter> reporterConstructor;
     private Constructor<ConfigProvider> configProviderConstructor;
-    private String configFile;
+    private /*~~>*/String configFile;
 
-    private String appIdVariable;
-    private String appIdRegex = DEFAULT_APP_ID_REGEX;
+    private /*~~>*/String appIdVariable;
+    private /*~~>*/String appIdRegex = DEFAULT_APP_ID_REGEX;
     private long metricInterval = DEFAULT_METRIC_INTERVAL;
     private long sampleInterval = 0L;
-    private String tag;
-    private String cluster;
+    private /*~~>*/String tag;
+    private /*~~>*/String cluster;
     private boolean threadProfiling = false;
     private boolean ioProfiling = false;
 
     private List<ClassAndMethod> durationProfiling = new ArrayList<>();
     private List<ClassMethodArgument> argumentProfiling = new ArrayList<>();
 
-    private Arguments(Map<String, List<String>> parsedArgs) {
+    private Arguments(Map</*~~>*/String, List</*~~>*/String>> parsedArgs) {
         updateArguments(parsedArgs);
     }
 
-    public static Arguments parseArgs(String args) {
+    public static Arguments parseArgs(/*~~>*/String args) {
         if (args == null) {
             return new Arguments(new HashMap<>());
         }
@@ -89,29 +89,29 @@ public class Arguments {
             return new Arguments(new HashMap<>());
         }
 
-        Map<String, List<String>> map = new HashMap<>();
-        for (String argPair : args.split(",")) {
-            String[] strs = argPair.split("=");
+        Map</*~~>*/String, List</*~~>*/String>> map = new HashMap<>();
+        for (/*~~>*/String argPair : args.split(",")) {
+            /*~~>*/String[] strs = argPair.split("=");
             if (strs.length != 2) {
                 throw new IllegalArgumentException("Arguments for the agent should be like: key1=value1,key2=value2");
             }
 
-            String key = strs[0].trim();
+            /*~~>*/String key = strs[0].trim();
             if (key.isEmpty()) {
                 throw new IllegalArgumentException("Argument key should not be empty");
             }
 
-            List<String> list = map.computeIfAbsent(key, k -> new ArrayList<>());
+            List</*~~>*/String> list = map.computeIfAbsent(key, k -> new ArrayList<>());
             list.add(strs[1].trim());
         }
 
         return new Arguments(map);
     }
 
-    public void updateArguments(Map<String, List<String>> parsedArgs) {
+    public void updateArguments(Map</*~~>*/String, List</*~~>*/String>> parsedArgs) {
         rawArgValues.putAll(parsedArgs);
 
-        String argValue = ArgumentUtils.getArgumentSingleValue(parsedArgs, ARG_NOOP);
+        /*~~>*/String argValue = ArgumentUtils.getArgumentSingleValue(parsedArgs, ARG_NOOP);
         if (ArgumentUtils.needToUpdateArg(argValue)) {
             noop = Boolean.parseBoolean(argValue);
             logger.info("Got argument value for noop: " + noop);
@@ -185,16 +185,16 @@ public class Arguments {
             logger.info("Got argument value for threadProfiling: " + threadProfiling);
         }
 
-        List<String> argValues = ArgumentUtils.getArgumentMultiValues(parsedArgs, ARG_DURATION_PROFILING);
+        List</*~~>*/String> argValues = ArgumentUtils.getArgumentMultiValues(parsedArgs, ARG_DURATION_PROFILING);
         if (!argValues.isEmpty()) {
             durationProfiling.clear();
-            for (String str : argValues) {
+            for (/*~~>*/String str : argValues) {
                 int index = str.lastIndexOf(".");
                 if (index <= 0 || index + 1 >= str.length()) {
                     throw new IllegalArgumentException("Invalid argument value: " + str);
                 }
-                String className = str.substring(0, index);
-                String methodName = str.substring(index + 1);
+                /*~~>*/String className = str.substring(0, index);
+                /*~~>*/String methodName = str.substring(index + 1);
                 ClassAndMethod classAndMethod = new ClassAndMethod(className, methodName);
                 durationProfiling.add(classAndMethod);
                 logger.info("Got argument value for durationProfiling: " + classAndMethod);
@@ -204,20 +204,20 @@ public class Arguments {
         argValues = ArgumentUtils.getArgumentMultiValues(parsedArgs, ARG_ARGUMENT_PROFILING);
         if (!argValues.isEmpty()) {
             argumentProfiling.clear();
-            for (String str : argValues) {
+            for (/*~~>*/String str : argValues) {
                 int index = str.lastIndexOf(".");
                 if (index <= 0 || index + 1 >= str.length()) {
                     throw new IllegalArgumentException("Invalid argument value: " + str);
                 }
-                String classMethodName = str.substring(0, index);
+                /*~~>*/String classMethodName = str.substring(0, index);
                 int argumentIndex = Integer.parseInt(str.substring(index + 1, str.length()));
 
                 index = classMethodName.lastIndexOf(".");
                 if (index <= 0 || index + 1 >= classMethodName.length()) {
                     throw new IllegalArgumentException("Invalid argument value: " + str);
                 }
-                String className = classMethodName.substring(0, index);
-                String methodName = str.substring(index + 1, classMethodName.length());
+                /*~~>*/String className = classMethodName.substring(0, index);
+                /*~~>*/String methodName = str.substring(index + 1, classMethodName.length());
 
                 ClassMethodArgument classMethodArgument = new ClassMethodArgument(className, methodName, argumentIndex);
                 argumentProfiling.add(classMethodArgument);
@@ -236,10 +236,10 @@ public class Arguments {
         try {
             ConfigProvider configProvider = getConfigProvider();
             if (configProvider != null) {
-                Map<String, Map<String, List<String>>> extraConfig = configProvider.getConfig();
+                Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> extraConfig = configProvider.getConfig();
 
                 // Get root level config (use empty string as key in the config map)
-                Map<String, List<String>> rootConfig = extraConfig.get("");
+                Map</*~~>*/String, List</*~~>*/String>> rootConfig = extraConfig.get("");
                 if (rootConfig != null) {
                     updateArguments(rootConfig);
                     logger.info("Updated arguments based on config: " + JsonUtils.serialize(rootConfig));
@@ -247,7 +247,7 @@ public class Arguments {
 
                 // Get tag level config (use tag value to find config values in the config map)
                 if (getTag() != null && !getTag().isEmpty()) {
-                    Map<String, List<String>> overrideConfig = extraConfig.get(getTag());
+                    Map</*~~>*/String, List</*~~>*/String>> overrideConfig = extraConfig.get(getTag());
                     if (overrideConfig != null) {
                         updateArguments(overrideConfig);
                         logger.info("Updated arguments based on config override: " + JsonUtils.serialize(overrideConfig));
@@ -259,7 +259,7 @@ public class Arguments {
         }
     }
     
-    public Map<String, List<String>> getRawArgValues() {
+    public Map</*~~>*/String, List</*~~>*/String>> getRawArgValues() {
         return rawArgValues;
     }
 
@@ -272,7 +272,7 @@ public class Arguments {
                 reporter.updateArguments(getRawArgValues());
                 return reporter;
             } catch (Throwable e) {
-                throw new RuntimeException(String.format("Failed to create reporter instance %s", reporterConstructor.getDeclaringClass()), e);
+                throw new RuntimeException(/*~~>*/String.format("Failed to create reporter instance %s", reporterConstructor.getDeclaringClass()), e);
             }
         }
     }
@@ -292,7 +292,7 @@ public class Arguments {
                 }
                 return configProvider;
             } catch (Throwable e) {
-                throw new RuntimeException(String.format("Failed to create config provider instance %s", configProviderConstructor.getDeclaringClass()), e);
+                throw new RuntimeException(/*~~>*/String.format("Failed to create config provider instance %s", configProviderConstructor.getDeclaringClass()), e);
             }
         }
     }
@@ -301,11 +301,11 @@ public class Arguments {
         return noop;
     }
 
-    public void setReporter(String className) {
+    public void setReporter(/*~~>*/String className) {
         reporterConstructor = ReflectionUtils.getConstructor(className, Reporter.class);
     }
 
-    public void setConfigProvider(String className) {
+    public void setConfigProvider(/*~~>*/String className) {
         configProviderConstructor = ReflectionUtils.getConstructor(className, ConfigProvider.class);
     }
     
@@ -317,23 +317,23 @@ public class Arguments {
         return sampleInterval;
     }
     
-    public String getTag() {
+    public /*~~>*/String getTag() {
         return tag;
     }
 
-    public String getCluster() {
+    public /*~~>*/String getCluster() {
         return cluster;
     }
 
-    public String getAppIdVariable() {
+    public /*~~>*/String getAppIdVariable() {
         return appIdVariable;
     }
 
-    public void setAppIdVariable(String appIdVariable) {
-        this.appIdVariable = appIdVariable;
+    public void setAppIdVariable(/*~~>*/String appIdVariable) {
+        /*~~>*/this.appIdVariable = appIdVariable;
     }
 
-    public String getAppIdRegex() {
+    public /*~~>*/String getAppIdRegex() {
         return appIdRegex;
     }
 

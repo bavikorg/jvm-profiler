@@ -29,8 +29,8 @@ import java.util.stream.Collectors;
 public class MethodDurationProfilerTest {
     @Test
     public void profile() {
-        final List<String> nameList = new ArrayList<>();
-        final List<Map<String, Object>> metricList = new ArrayList<>();
+        final List</*~~>*/String> nameList = new ArrayList<>();
+        final List<Map</*~~>*/String, Object>> metricList = new ArrayList<>();
 
         ClassAndMethodLongMetricBuffer buffer = new ClassAndMethodLongMetricBuffer();
 
@@ -38,7 +38,7 @@ public class MethodDurationProfilerTest {
 
         Reporter reporter = new Reporter() {
             @Override
-            public void report(String profilerName, Map<String, Object> metrics) {
+            public void report(/*~~>*/String profilerName, Map</*~~>*/String, Object> metrics) {
                 nameList.add(profilerName);
                 metricList.add(metrics);
             }
@@ -61,11 +61,11 @@ public class MethodDurationProfilerTest {
 
         int metricCountForHistogram = 4;
         Assert.assertEquals(2 * metricCountForHistogram, nameList.size());
-        Assert.assertEquals(MethodDurationProfiler.PROFILER_NAME, nameList.get(0));
+        Assert.assertEquals(/*~~>*/MethodDurationProfiler.PROFILER_NAME, nameList.get(0));
 
         Assert.assertEquals(2 * metricCountForHistogram, metricList.size());
 
-        List<Map<String, Object>> metricsToCheck = metricList.stream().filter(t ->
+        List<Map</*~~>*/String, Object>> metricsToCheck = metricList.stream().filter(t ->
                 t.get("className").equals("class1")
                         && t.get("methodName").equals("method1")
                         && t.get("metricName").equals("metric1.count"))

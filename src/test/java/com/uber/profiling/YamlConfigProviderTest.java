@@ -47,7 +47,7 @@ public class YamlConfigProviderTest {
             File file = File.createTempFile("test", "test");
             file.deleteOnExit();
 
-            String content = "";
+            /*~~>*/String content = "";
             Files.write(file.toPath(), content.getBytes(), StandardOpenOption.CREATE);
 
             YamlConfigProvider provider = new YamlConfigProvider(file.getAbsolutePath());
@@ -58,7 +58,7 @@ public class YamlConfigProviderTest {
             File file = File.createTempFile("test", "test");
             file.deleteOnExit();
 
-            String content = "key1: value1\n" +
+            /*~~>*/String content = "key1: value1\n" +
                     "key2:\n" +
                     "- value2a\n" +
                     "- value2b\n" +
@@ -79,17 +79,17 @@ public class YamlConfigProviderTest {
             Files.write(file.toPath(), content.getBytes(), StandardOpenOption.CREATE);
 
             YamlConfigProvider provider = new YamlConfigProvider(file.getAbsolutePath());
-            Map<String, Map<String, List<String>>> config = provider.getConfig();
+            Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> config = provider.getConfig();
             Assert.assertEquals(2, config.size());
 
-            Map<String, List<String>> rootConfig = config.get("");
+            Map</*~~>*/String, List</*~~>*/String>> rootConfig = config.get("");
             Assert.assertEquals(4, rootConfig.size());
             Assert.assertEquals(Arrays.asList("value1"), rootConfig.get("key1"));
             Assert.assertEquals(Arrays.asList("value2a", "value2b"), rootConfig.get("key2"));
             Assert.assertEquals(Arrays.asList("value3a"), rootConfig.get("key3.key3a"));
             Assert.assertEquals(Arrays.asList("value3b", "value3c"), rootConfig.get("key3.key3b"));
 
-            Map<String, List<String>> override1Config = config.get("override1");
+            Map</*~~>*/String, List</*~~>*/String>> override1Config = config.get("override1");
             Assert.assertEquals(3, override1Config.size());
             Assert.assertEquals(Arrays.asList("value11"), override1Config.get("key1"));
             Assert.assertEquals(Arrays.asList("value22a", "value22b"), override1Config.get("key2"));
@@ -100,13 +100,13 @@ public class YamlConfigProviderTest {
     @Test
     public void getConfigFromBadHttpUrl() throws IOException {
         YamlConfigProvider provider = new YamlConfigProvider("http://localhost/bad_url");
-        Map<String, Map<String, List<String>>> config = provider.getConfig();
+        Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> config = provider.getConfig();
         Assert.assertEquals(0, config.size());
     }
     
     @Test
     public void getConfigFromFile() throws IOException {
-        String content = "key1: value1\n" +
+        /*~~>*/String content = "key1: value1\n" +
                 "key2:\n" +
                 "- value2a\n" +
                 "- value2b\n" +
@@ -130,16 +130,16 @@ public class YamlConfigProviderTest {
         path.toFile().deleteOnExit();
         
         YamlConfigProvider provider = new YamlConfigProvider(path.toString());
-        Map<String, Map<String, List<String>>> config = provider.getConfig();
+        Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> config = provider.getConfig();
         Assert.assertEquals(2, config.size());
 
-        Map<String, List<String>> rootConfig = config.get("");
+        Map</*~~>*/String, List</*~~>*/String>> rootConfig = config.get("");
         Assert.assertEquals(4, rootConfig.size());
         Assert.assertEquals(Arrays.asList("value1"), rootConfig.get("key1"));
         Assert.assertEquals(Arrays.asList("value2a", "value2b"), rootConfig.get("key2"));
         Assert.assertEquals(Arrays.asList("value3b", "value3c"), rootConfig.get("key3.key3b"));
 
-        Map<String, List<String>> override1Config = config.get("override1");
+        Map</*~~>*/String, List</*~~>*/String>> override1Config = config.get("override1");
         Assert.assertEquals(3, override1Config.size());
         Assert.assertEquals(Arrays.asList("value11"), override1Config.get("key1"));
         Assert.assertEquals(Arrays.asList("value22a", "value22b"), override1Config.get("key2"));

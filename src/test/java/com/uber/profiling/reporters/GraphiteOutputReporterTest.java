@@ -40,7 +40,7 @@ public class GraphiteOutputReporterTest {
 
   @Test
   public void testGetFormattedMetrics() {
-    Map<String, Object> metrics = new HashMap<>();
+    Map</*~~>*/String, Object> metrics = new HashMap<>();
 
     //Stacktrace
     metrics.put("startEpoch", 1569205908214L);
@@ -61,13 +61,13 @@ public class GraphiteOutputReporterTest {
 
     // CpuAndMemory
     metrics.put("nonHeapMemoryTotalUsed", 1.690948E7);
-    Map<String, Object> directBufferPoolsMap = new HashMap();
+    Map</*~~>*/String, Object> directBufferPoolsMap = new HashMap();
     directBufferPoolsMap.put("totalCapacity", 24575L);
     directBufferPoolsMap.put("name", "direct");
     directBufferPoolsMap.put("count", 3L);
     directBufferPoolsMap.put("memoryUsed", 24575L);
 
-    Map<String, Object> mappedBufferPoolsMap = new HashMap();
+    Map</*~~>*/String, Object> mappedBufferPoolsMap = new HashMap();
     mappedBufferPoolsMap.put("totalCapacity", 0L);
     mappedBufferPoolsMap.put("name", "mapped");
     mappedBufferPoolsMap.put("count", 0L);
@@ -80,7 +80,7 @@ public class GraphiteOutputReporterTest {
     metrics.put("nonHeapMemoryCommitted", 1.80224E7);
     metrics.put("heapMemoryCommitted", 5.04889344E8);
 
-    List<Map<String, String>> memoryPoolsList = new ArrayList<>();
+    List<Map</*~~>*/String, /*~~>*/String>> memoryPoolsList = new ArrayList<>();
     memoryPoolsList.add(parseMap(
         "{peakUsageMax=251658240, usageMax=251658240, peakUsageUsed=2072256, name=Code Cache, "
             + "peakUsageCommitted=2555904, usageUsed=2072256, type=Non-heap memory, "
@@ -113,8 +113,8 @@ public class GraphiteOutputReporterTest {
 
     metrics.put("memoryPools", memoryPoolsList);
 
-    Map<String, Object> formattedMetrics = reporter.getFormattedMetrics(metrics);
-    Map<String, Object> expectedMetrics = new HashMap<>();
+    Map</*~~>*/String, Object> formattedMetrics = reporter.getFormattedMetrics(metrics);
+    Map</*~~>*/String, Object> expectedMetrics = new HashMap<>();
 
     expectedMetrics.put("appId", "hello_jvm_profile");
     expectedMetrics.put("bufferPools.direct.count", 3L);
@@ -189,7 +189,7 @@ public class GraphiteOutputReporterTest {
 
   @Test
   public void testParseMap() throws IOException {
-    String mapString = "{peakUsageMax=251658240, usageMax=251658240, peakUsageUsed=2072256, "
+    /*~~>*/String mapString = "{peakUsageMax=251658240, usageMax=251658240, peakUsageUsed=2072256, "
         + "name=Code Cache, peakUsageCommitted=2555904, usageUsed=2072256, type=Non-heap memory, "
         + "usageCommitted=2555904}";
     Map map = parseMap(mapString);
@@ -206,16 +206,16 @@ public class GraphiteOutputReporterTest {
     assertEquals(expected, map);
   }
 
-  private Map<String, String> parseMap(String mapString) {
+  private Map</*~~>*/String, /*~~>*/String> parseMap(/*~~>*/String mapString) {
     Map result = new HashMap<>();
-    String[] fields = mapString.replace("{", "")
+    /*~~>*/String[] fields = mapString.replace("{", "")
         .replace("}", "")
         .split(",");
 
     for (int i = 0; i < fields.length; i++) {
-      String[] kv = fields[i].split("=");
-      String k = StringUtils.trim(kv[0]);
-      String v = StringUtils.trim(kv[1]);
+      /*~~>*/String[] kv = fields[i].split("=");
+      /*~~>*/String k = StringUtils.trim(kv[0]);
+      /*~~>*/String v = StringUtils.trim(kv[1]);
 
       try {
         long l = Long.parseLong(v);

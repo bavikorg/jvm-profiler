@@ -33,7 +33,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * This class reads the stacktraces from the given buffer and send out via given reporter.
  */
 public class StacktraceReporterProfiler extends ProfilerBase implements Profiler {
-    public static final String PROFILER_NAME = "Stacktrace";
+    public static final /*~~>*/String PROFILER_NAME = "Stacktrace";
 
     private StacktraceMetricBuffer buffer;
 
@@ -76,7 +76,7 @@ public class StacktraceReporterProfiler extends ProfilerBase implements Profiler
         long endEpoch = buffer.getLastResetMillis();
 
         for (Map.Entry<Stacktrace, AtomicLong> entry : metrics.entrySet()) {
-            Map<String, Object> map = new HashMap<>();
+            Map</*~~>*/String, Object> map = new HashMap<>();
 
             map.put("startEpoch", startEpoch);
             map.put("endEpoch", endEpoch);
@@ -105,7 +105,7 @@ public class StacktraceReporterProfiler extends ProfilerBase implements Profiler
 
             ClassAndMethod[] classAndMethodArray = stacktrace.getStack();
             if (classAndMethodArray!= null) {
-                List<String> stackArray = new ArrayList<>(classAndMethodArray.length);
+                List</*~~>*/String> stackArray = new ArrayList<>(classAndMethodArray.length);
                 for (int i = 0; i < classAndMethodArray.length; i++) {
                     ClassAndMethod classAndMethod = classAndMethodArray[i];
                     stackArray.add(classAndMethod.getClassName() + "." + classAndMethod.getMethodName());

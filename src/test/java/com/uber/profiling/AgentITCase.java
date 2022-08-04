@@ -33,12 +33,12 @@ import java.util.stream.Collectors;
 public class AgentITCase {
     @Test
     public void runAgent() throws InterruptedException, IOException {
-        String javaHome = System.getProperty("java.home");
-        String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
+        /*~~>*/String javaHome = System.getProperty("java.home");
+        /*~~>*/String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
 
-        String agentJar = getAgentJarPath();
+        /*~~>*/String agentJar = getAgentJarPath();
         
-        String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
+        /*~~>*/String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
         System.out.println("outputDir: " + outputDir);
         
         ProcessBuilder pb = new ProcessBuilder(
@@ -59,35 +59,35 @@ public class AgentITCase {
         File[] files = new File(outputDir).listFiles();
         Assert.assertEquals(5, files.length);
 
-        List<String> fileNames = Arrays.asList(files).stream().map(t->t.getName()).sorted().collect(Collectors.toList());
+        List</*~~>*/String> fileNames = Arrays.asList(files).stream().map(t->t.getName()).sorted().collect(Collectors.toList());
         
         Assert.assertEquals("CpuAndMemory.json", fileNames.get(0));
-        String jsonCpuAndMemory = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(0))));
+        /*~~>*/String jsonCpuAndMemory = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(0))));
         System.out.println("-----CpuAndMemory-----");
         System.out.println(jsonCpuAndMemory);
         Assert.assertTrue(jsonCpuAndMemory.contains("bufferPool"));
 
         Assert.assertEquals("IO.json", fileNames.get(1));
-        String jsonProcFileSystem = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(1))));
+        /*~~>*/String jsonProcFileSystem = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(1))));
         System.out.println("-----IO-----");
         System.out.println(jsonProcFileSystem);
         Assert.assertTrue(jsonProcFileSystem.contains("read_bytes"));
         Assert.assertTrue(jsonProcFileSystem.contains("write_bytes"));
         
         Assert.assertEquals("MethodArgument.json", fileNames.get(2));
-        String jsonMethodArgument = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(2))));
+        /*~~>*/String jsonMethodArgument = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(2))));
         System.out.println("-----MethodArgument-----");
         System.out.println(jsonMethodArgument);
         Assert.assertTrue(jsonMethodArgument.contains("arg.1"));
         
         Assert.assertEquals("MethodDuration.json", fileNames.get(3));
-        String jsonMethodDuration = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(3))));
+        /*~~>*/String jsonMethodDuration = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(3))));
         System.out.println("-----MethodDuration-----");
         System.out.println(jsonMethodDuration);
         Assert.assertTrue(jsonMethodDuration.contains("duration.sum"));
 
         Assert.assertEquals("ProcessInfo.json", fileNames.get(4));
-        String jsonProcessInfo = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(4))));
+        /*~~>*/String jsonProcessInfo = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(4))));
         System.out.println("-----ProcessInfo-----");
         System.out.println(jsonProcessInfo);
         Assert.assertTrue(jsonProcessInfo.contains("jvmClassPath"));
@@ -96,12 +96,12 @@ public class AgentITCase {
 
     @Test
     public void runAgent_noop() throws InterruptedException, IOException {
-        String javaHome = System.getProperty("java.home");
-        String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
+        /*~~>*/String javaHome = System.getProperty("java.home");
+        /*~~>*/String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
 
-        String agentJar = getAgentJarPath();
+        /*~~>*/String agentJar = getAgentJarPath();
 
-        String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
+        /*~~>*/String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
         System.out.println("outputDir: " + outputDir);
 
         ProcessBuilder pb = new ProcessBuilder(
@@ -125,12 +125,12 @@ public class AgentITCase {
 
     @Test
     public void runAgent_noopConfigProvider() throws InterruptedException, IOException {
-        String javaHome = System.getProperty("java.home");
-        String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
+        /*~~>*/String javaHome = System.getProperty("java.home");
+        /*~~>*/String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
 
-        String agentJar = getAgentJarPath();
+        /*~~>*/String agentJar = getAgentJarPath();
 
-        String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
+        /*~~>*/String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
         System.out.println("outputDir: " + outputDir);
 
         ProcessBuilder pb = new ProcessBuilder(
@@ -154,12 +154,12 @@ public class AgentITCase {
 
     @Test
     public void runAgent_argumentProfilingZero() throws InterruptedException, IOException {
-        String javaHome = System.getProperty("java.home");
-        String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
+        /*~~>*/String javaHome = System.getProperty("java.home");
+        /*~~>*/String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
 
-        String agentJar = getAgentJarPath();
+        /*~~>*/String agentJar = getAgentJarPath();
 
-        String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
+        /*~~>*/String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
         System.out.println("outputDir: " + outputDir);
 
         ProcessBuilder pb = new ProcessBuilder(
@@ -180,28 +180,28 @@ public class AgentITCase {
         File[] files = new File(outputDir).listFiles();
         Assert.assertEquals(4, files.length);
 
-        List<String> fileNames = Arrays.asList(files).stream().map(t->t.getName()).sorted().collect(Collectors.toList());
+        List</*~~>*/String> fileNames = Arrays.asList(files).stream().map(t->t.getName()).sorted().collect(Collectors.toList());
 
         Assert.assertEquals("CpuAndMemory.json", fileNames.get(0));
-        String jsonCpuAndMemory = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(0))));
+        /*~~>*/String jsonCpuAndMemory = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(0))));
         System.out.println("-----CpuAndMemory-----");
         System.out.println(jsonCpuAndMemory);
         Assert.assertTrue(jsonCpuAndMemory.contains("bufferPool"));
         
         Assert.assertEquals("MethodArgument.json", fileNames.get(1));
-        String jsonMethodArgument = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(1))));
+        /*~~>*/String jsonMethodArgument = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(1))));
         System.out.println("-----MethodArgument-----");
         System.out.println(jsonMethodArgument);
         Assert.assertTrue(jsonMethodArgument.contains("arg.0"));
 
         Assert.assertEquals("MethodDuration.json", fileNames.get(2));
-        String jsonMethodDuration = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(2))));
+        /*~~>*/String jsonMethodDuration = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(2))));
         System.out.println("-----MethodDuration-----");
         System.out.println(jsonMethodDuration);
         Assert.assertTrue(jsonMethodDuration.contains("duration.sum"));
 
         Assert.assertEquals("ProcessInfo.json", fileNames.get(3));
-        String jsonProcessInfo = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(3))));
+        /*~~>*/String jsonProcessInfo = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(3))));
         System.out.println("-----ProcessInfo-----");
         System.out.println(jsonProcessInfo);
         Assert.assertTrue(jsonProcessInfo.contains("jvmClassPath"));
@@ -210,12 +210,12 @@ public class AgentITCase {
 
     @Test
     public void runAgent_appIdVariable() throws InterruptedException, IOException {
-        String javaHome = System.getProperty("java.home");
-        String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
+        /*~~>*/String javaHome = System.getProperty("java.home");
+        /*~~>*/String javaBin = Paths.get(javaHome, "bin/java").toAbsolutePath().toString();
 
-        String agentJar = getAgentJarPath();
+        /*~~>*/String agentJar = getAgentJarPath();
 
-        String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
+        /*~~>*/String outputDir = Files.createTempDirectory("jvm_profiler_test_output").toString();
         System.out.println("outputDir: " + outputDir);
 
         ProcessBuilder pb = new ProcessBuilder(
@@ -238,24 +238,24 @@ public class AgentITCase {
         File[] files = new File(outputDir).listFiles();
         Assert.assertEquals(2, files.length);
 
-        List<String> fileNames = Arrays.asList(files).stream().map(t->t.getName()).sorted().collect(Collectors.toList());
+        List</*~~>*/String> fileNames = Arrays.asList(files).stream().map(t->t.getName()).sorted().collect(Collectors.toList());
 
         Assert.assertEquals("CpuAndMemory.json", fileNames.get(0));
-        String jsonCpuAndMemory = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(0))));
+        /*~~>*/String jsonCpuAndMemory = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(0))));
         System.out.println("-----CpuAndMemory-----");
         System.out.println(jsonCpuAndMemory);
         Assert.assertTrue(jsonCpuAndMemory.contains("TEST_APP_ID_123_ABC"));
 
         Assert.assertEquals("ProcessInfo.json", fileNames.get(1));
-        String jsonProcessInfo = new String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(1))));
+        /*~~>*/String jsonProcessInfo = new /*~~>*/String(Files.readAllBytes(Paths.get(outputDir, fileNames.get(1))));
         System.out.println("-----ProcessInfo-----");
         System.out.println(jsonProcessInfo);
         Assert.assertTrue(jsonProcessInfo.contains("TEST_APP_ID_123_ABC"));
     }
     
-    private String getAgentJarPath() throws IOException {
+    private /*~~>*/String getAgentJarPath() throws IOException {
         // Find jar file with largest size under target directory, which should be the packaged agent jar file
-        String agentJar = Files.list(Paths.get("target"))
+        /*~~>*/String agentJar = Files.list(Paths.get("target"))
                 .max(Comparator.comparingLong(t -> {
                     try {
                         return Files.size(t);

@@ -13,7 +13,7 @@ import java.util.Map;
  * ThreadInfoProfiler is used to Collects the Thread Related Metrics.
  */
 public class ThreadInfoProfiler extends ProfilerBase implements Profiler {
-    public final static String PROFILER_NAME = "ThreadInfo";
+    public final static /*~~>*/String PROFILER_NAME = "ThreadInfo";
     public final static AgentLogger logger = AgentLogger.getLogger(ThreadInfoProfiler.class.getName());
     private long intervalMillis = Constants.DEFAULT_METRIC_INTERVAL;
 
@@ -67,7 +67,7 @@ public class ThreadInfoProfiler extends ProfilerBase implements Profiler {
             this.previousTotalStartedThreadCount = totalStartedThreadCount;
         }
 
-        Map<String, Object> map = new HashMap<>();
+        Map</*~~>*/String, Object> map = new HashMap<>();
 
         map.put("epochMillis", System.currentTimeMillis());
         map.put("name", getProcessName());

@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class DummyConfigProvider implements ConfigProvider {
     @Override
-    public Map<String, Map<String, List<String>>> getConfig() {
+    public Map</*~~>*/String, Map</*~~>*/String, List</*~~>*/String>>> getConfig() {
         return new HashMap<>();
     }
 }

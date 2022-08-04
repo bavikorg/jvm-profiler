@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class ClassMethodArgumentMetricBuffer {
     private volatile ConcurrentHashMap<ClassAndMethodMetricKey, AtomicLong> metrics = new ConcurrentHashMap<>();
 
-    public void appendValue(String className, String methodName, String argument) {
+    public void appendValue(/*~~>*/String className, /*~~>*/String methodName, /*~~>*/String argument) {
         ClassAndMethodMetricKey methodMetricKey = new ClassAndMethodMetricKey(className, methodName, argument);
         AtomicLong counter = metrics.computeIfAbsent(methodMetricKey, key -> new AtomicLong(0));
         counter.incrementAndGet();

@@ -74,10 +74,10 @@ public class ShutdownHookRunner implements Runnable {
         }
     }
     
-    private void logShutdownMessage(String msg) {
+    private void logShutdownMessage(/*~~>*/String msg) {
         // Sometime spark log in console output seems not fully collected, thus log to error output as well to make sure
         // we capture this shutdown hook execution. This is to help debug some issue when shutdown hook seems not executed.
-        String log = System.currentTimeMillis() + " " + msg;
+        /*~~>*/String log = System.currentTimeMillis() + " " + msg;
         System.out.println(log);
         System.err.println(log);
     }

@@ -25,7 +25,7 @@ import java.lang.reflect.InvocationTargetException;
 public class SparkUtilsTest {
     @Test
     public void probeAppId() {
-        Assert.assertNull(SparkUtils.probeAppId(Arguments.ARG_APP_ID_REGEX));
+        Assert.assertNull(SparkUtils.probeAppId(/*~~>*/Arguments.ARG_APP_ID_REGEX));
         Assert.assertEquals("jar", SparkUtils.probeAppId("jar"));
     }
     

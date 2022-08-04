@@ -56,7 +56,7 @@ public class ExponentialBackoffRetryPolicy<T> {
 
     while (remainingAttempts > 0) {
       long sleepTime = minSleepTime + random.nextInt((int)(maxSleepTime - minSleepTime));
-      logger.info(String.format("Retrying (after sleeping %s milliseconds) on exception: %s", sleepTime, previousException));
+      logger.info(/*~~>*/String.format("Retrying (after sleeping %s milliseconds) on exception: %s", sleepTime, previousException));
       try {
         Thread.sleep(sleepTime);
       } catch (InterruptedException ex) {
@@ -73,7 +73,7 @@ public class ExponentialBackoffRetryPolicy<T> {
       maxSleepTime *= scaleFactor;
     }
 
-    String msg = String.format("Failed after trying %s times", maxAttemptCount);
+    /*~~>*/String msg = /*~~>*/String.format("Failed after trying %s times", maxAttemptCount);
     throw new RuntimeException(msg, previousException);
   }
 

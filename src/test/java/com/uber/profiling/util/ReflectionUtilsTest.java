@@ -23,7 +23,7 @@ import java.lang.reflect.InvocationTargetException;
 
 public class ReflectionUtilsTest {
     static class ClassA {
-        public String method1() {
+        public /*~~>*/String method1() {
             return "hello";
         }
     }

@@ -44,7 +44,7 @@ public class JavaAgentFileTransformer implements ClassFileTransformer {
     }
 
     @Override
-    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+    public byte[] transform(ClassLoader loader, /*~~>*/String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
         try {
             if (className == null || className.isEmpty()) {
                 logger.debug("Hit null or empty class name");
@@ -57,13 +57,13 @@ public class JavaAgentFileTransformer implements ClassFileTransformer {
         }
     }
 
-    private byte[] transformImpl(ClassLoader loader, String className, byte[] classfileBuffer) {
+    private byte[] transformImpl(ClassLoader loader, /*~~>*/String className, byte[] classfileBuffer) {
         if (durationProfilingFilter.isEmpty()
                 && argumentFilterProfilingFilter.isEmpty()) {
             return null;
         }
 
-        String normalizedClassName = className.replaceAll("/", ".");
+        /*~~>*/String normalizedClassName = className.replaceAll("/", ".");
         logger.debug("Checking class for transform: " + normalizedClassName);
 
         if (!durationProfilingFilter.matchClass(normalizedClassName)
@@ -102,7 +102,7 @@ public class JavaAgentFileTransformer implements ClassFileTransformer {
         return byteCode;
     }
 
-    private void transformMethod(String normalizedClassName, CtMethod method, boolean enableDurationProfiling, List<Integer> argumentsForProfile) {
+    private void transformMethod(/*~~>*/String normalizedClassName, CtMethod method, boolean enableDurationProfiling, List<Integer> argumentsForProfile) {
         if (method.isEmpty()) {
             logger.info("Ignored empty class method: " + method.getLongName());
             return;
@@ -127,13 +127,13 @@ public class JavaAgentFileTransformer implements ClassFileTransformer {
 
             for (Integer argument : argumentsForProfile) {
                 if (argument >= 1) {
-                    sb.append(String.format("try{com.uber.profiling.transformers.MethodProfilerStaticProxy.collectMethodArgument(\"%s\", \"%s\", %s, String.valueOf($%s));}catch(Throwable ex){ex.printStackTrace();}",
+                    sb.append(/*~~>*/String.format("try{com.uber.profiling.transformers.MethodProfilerStaticProxy.collectMethodArgument(\"%s\", \"%s\", %s, String.valueOf($%s));}catch(Throwable ex){ex.printStackTrace();}",
                             normalizedClassName,
                             method.getName(),
                             argument,
                             argument));
                 } else {
-                    sb.append(String.format("try{com.uber.profiling.transformers.MethodProfilerStaticProxy.collectMethodArgument(\"%s\", \"%s\", %s, \"\");}catch(Throwable ex){ex.printStackTrace();}",
+                    sb.append(/*~~>*/String.format("try{com.uber.profiling.transformers.MethodProfilerStaticProxy.collectMethodArgument(\"%s\", \"%s\", %s, \"\");}catch(Throwable ex){ex.printStackTrace();}",
                             normalizedClassName,
                             method.getName(),
                             argument,
@@ -148,7 +148,7 @@ public class JavaAgentFileTransformer implements ClassFileTransformer {
             if (enableDurationProfiling) {
                 method.insertAfter("{" +
                         "durationMillis_java_agent_instrument = System.currentTimeMillis() - startMillis_java_agent_instrument;" +
-                        String.format("try{com.uber.profiling.transformers.MethodProfilerStaticProxy.collectMethodDuration(\"%s\", \"%s\", durationMillis_java_agent_instrument);}catch(Throwable ex){ex.printStackTrace();}", normalizedClassName, method.getName()) +
+                        /*~~>*/String.format("try{com.uber.profiling.transformers.MethodProfilerStaticProxy.collectMethodDuration(\"%s\", \"%s\", durationMillis_java_agent_instrument);}catch(Throwable ex){ex.printStackTrace();}", normalizedClassName, method.getName()) +
                         "}");
             }
 

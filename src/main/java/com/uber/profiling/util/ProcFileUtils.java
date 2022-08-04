@@ -31,41 +31,41 @@ import java.util.Map;
 public class ProcFileUtils {
     private static final AgentLogger logger = AgentLogger.getLogger(ProcFileUtils.class.getName());
 
-    private static final String PROC_SELF_STATUS_FILE = "/proc/self/status";
-    private static final String PROC_SELF_IO_FILE = "/proc/self/io";
-    private static final String PROC_STAT_FILE = "/proc/stat";
-    private static final String PROC_SELF_CMDLINE_FILE = "/proc/self/cmdline";
-    private static final String VALUE_SEPARATOR = ":";
+    private static final /*~~>*/String PROC_SELF_STATUS_FILE = "/proc/self/status";
+    private static final /*~~>*/String PROC_SELF_IO_FILE = "/proc/self/io";
+    private static final /*~~>*/String PROC_STAT_FILE = "/proc/stat";
+    private static final /*~~>*/String PROC_SELF_CMDLINE_FILE = "/proc/self/cmdline";
+    private static final /*~~>*/String VALUE_SEPARATOR = ":";
 
-    public static Map<String, String> getProcStatus() {
+    public static Map</*~~>*/String, /*~~>*/String> getProcStatus() {
         return getProcFileAsMap(PROC_SELF_STATUS_FILE);
     }
 
-    public static Map<String, String>  getProcIO() {
+    public static Map</*~~>*/String, /*~~>*/String>  getProcIO() {
         return getProcFileAsMap(PROC_SELF_IO_FILE);
     }
     
-    public static List<Map<String, Object>> getProcStatCpuTime() {
-        List<String[]> rows = getProcFileAsRowColumn(PROC_STAT_FILE);
+    public static List<Map</*~~>*/String, Object>> getProcStatCpuTime() {
+        List</*~~>*//*~~>*/String[]> rows = getProcFileAsRowColumn(PROC_STAT_FILE);
         return getProcStatCpuTime(rows);
     }
 
-    public static Map<String, String> getProcFileAsMap(String filePath) {
+    public static Map</*~~>*/String, /*~~>*/String> getProcFileAsMap(/*~~>*/String filePath) {
         try {
             File file = new File(filePath);
             if (!file.exists() || file.isDirectory() || !file.canRead()) {
                 return Collections.emptyMap();
             }
 
-            Map<String, String> result = new HashMap<>();
-            List<String> lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
-            for (String line : lines) {
+            Map</*~~>*/String, /*~~>*/String> result = new HashMap<>();
+            List</*~~>*/String> lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
+            for (/*~~>*/String line : lines) {
                 int index = line.indexOf(VALUE_SEPARATOR);
                 if (index <= 0 || index >= line.length() - 1) {
                     continue;
                 }
-                String key = line.substring(0, index).trim();
-                String value = line.substring(index + 1).trim();
+                /*~~>*/String key = line.substring(0, index).trim();
+                /*~~>*/String value = line.substring(index + 1).trim();
                 result.put(key, value);
             }
             return result;
@@ -75,16 +75,16 @@ public class ProcFileUtils {
         }
     }
 
-    public static List<String[]> getProcFileAsRowColumn(String filePath) {
+    public static List</*~~>*//*~~>*/String[]> getProcFileAsRowColumn(/*~~>*/String filePath) {
         try {
             File file = new File(filePath);
             if (!file.exists() || file.isDirectory() || !file.canRead()) {
                 return Collections.emptyList();
             }
 
-            List<String[]> result = new ArrayList<>();
-            List<String> lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
-            for (String line : lines) {
+            List</*~~>*//*~~>*/String[]> result = new ArrayList<>();
+            List</*~~>*/String> lines = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
+            for (/*~~>*/String line : lines) {
                 result.add(line.split("\\s+"));
             }
             return result;
@@ -94,7 +94,7 @@ public class ProcFileUtils {
         }
     }
 
-    public static Long getBytesValue(Map<String, String> data, String key) {
+    public static Long getBytesValue(Map</*~~>*/String, /*~~>*/String> data, /*~~>*/String key) {
         if (data == null) {
             return null;
         }
@@ -103,7 +103,7 @@ public class ProcFileUtils {
             return null;
         }
         
-        String value = data.get(key);
+        /*~~>*/String value = data.get(key);
         if (value == null) {
             return null;
         }
@@ -111,18 +111,18 @@ public class ProcFileUtils {
         return StringUtils.getBytesValueOrNull(value);
     }
 
-    public static List<Map<String, Object>> getProcStatCpuTime(Collection<String[]> rows) {
+    public static List<Map</*~~>*/String, Object>> getProcStatCpuTime(Collection</*~~>*//*~~>*/String[]> rows) {
         if (rows == null) {
             return Collections.emptyList();
         }
         
         final int minValuesInRow = 6;
 
-        List<Map<String, Object>> result = new ArrayList<>();
+        List<Map</*~~>*/String, Object>> result = new ArrayList<>();
         
-        for (String[] row : rows) {
+        for (/*~~>*/String[] row : rows) {
             if (row.length >= minValuesInRow && row[0].toLowerCase().startsWith("cpu")) {
-                Map<String, Object> map = new HashMap<>();
+                Map</*~~>*/String, Object> map = new HashMap<>();
                 try {
                     map.put("cpu", row[0]);
                     map.put("user", Long.parseLong(row[1].trim()));
@@ -140,13 +140,13 @@ public class ProcFileUtils {
         return result;
     }
 
-    public static String getPid() {
+    public static /*~~>*/String getPid() {
         return getPid(PROC_SELF_STATUS_FILE);
     }
     
-    public static String getPid(String filePath) {
+    public static /*~~>*/String getPid(/*~~>*/String filePath) {
         // See http://man7.org/linux/man-pages/man5/proc.5.html for details about proc status
-        Map<String, String> procStatus = getProcFileAsMap(filePath);
+        Map</*~~>*/String, /*~~>*/String> procStatus = getProcFileAsMap(filePath);
         if (procStatus != null) {
             return procStatus.get("Pid");
         }
@@ -154,14 +154,14 @@ public class ProcFileUtils {
         return null;
     }
     
-    public static String getCmdline() {
+    public static /*~~>*/String getCmdline() {
         try {
             File file = new File(PROC_SELF_CMDLINE_FILE);
             if (!file.exists() || file.isDirectory() || !file.canRead()) {
                 return null;
             }
 
-            String cmdline = new String(Files.readAllBytes(Paths.get(file.getPath())));
+            /*~~>*/String cmdline = new /*~~>*/String(Files.readAllBytes(Paths.get(file.getPath())));
             cmdline = cmdline.replace((char)0, ' ');
             return cmdline;
         } catch (Throwable ex) {

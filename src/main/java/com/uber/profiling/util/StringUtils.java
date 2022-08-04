@@ -32,7 +32,7 @@ public class StringUtils {
 
     private final static int ARGUMENT_VALUE_COUNT_LIMIT = 10000;
     
-    public static List<String> splitByLength(String str, int length) {
+    public static List</*~~>*/String> splitByLength(/*~~>*/String str, int length) {
         if (length <= 0) {
             throw new IllegalArgumentException("length could not be 0 or less than 0: " + length);
         }
@@ -41,10 +41,10 @@ public class StringUtils {
             return new ArrayList<>();
         }
 
-        List<String> result = new ArrayList<>();
+        List</*~~>*/String> result = new ArrayList<>();
         for (int i = 0; i < str.length(); ) {
             int endIndex = Math.min(i + length, str.length());
-            String fragment = str.substring(i, endIndex);
+            /*~~>*/String fragment = str.substring(i, endIndex);
             i = endIndex;
 
             result.add(fragment);
@@ -53,8 +53,8 @@ public class StringUtils {
         return result;
     }
 
-    public static List<String> extractByRegex(String str, String regex) {
-        List<String> result = new ArrayList<>();
+    public static List</*~~>*/String> extractByRegex(/*~~>*/String str, /*~~>*/String regex) {
+        List</*~~>*/String> result = new ArrayList<>();
 
         if (str == null || regex == null) {
             return result;
@@ -69,7 +69,7 @@ public class StringUtils {
         return result;
     }
     
-    public static Long getBytesValueOrNull(String str) {
+    public static Long getBytesValueOrNull(/*~~>*/String str) {
         if (str == null || str.isEmpty()) {
             return null;
         }
@@ -114,12 +114,12 @@ public class StringUtils {
         }
     }
     
-    public static String getArgumentValue(String str, String argument) {
+    public static /*~~>*/String getArgumentValue(/*~~>*/String str, /*~~>*/String argument) {
         if (str == null || str.isEmpty() || argument == null || argument.isEmpty()) {
             return null;
         }
 
-        String[] values = getArgumentValues(str, argument, 1);
+        /*~~>*/String[] values = getArgumentValues(str, argument, 1);
 
         if (values.length == 0) {
             return null;
@@ -128,27 +128,27 @@ public class StringUtils {
         return values[0];
     }
 
-    public static String[] getArgumentValues(String str, String argument) {
+    public static /*~~>*//*~~>*/String[] getArgumentValues(/*~~>*/String str, /*~~>*/String argument) {
         return getArgumentValues(str, argument, ARGUMENT_VALUE_COUNT_LIMIT);
     }
 
-    private static String[] getArgumentValues(String str, String argument, int maxCount) {
+    private static /*~~>*//*~~>*/String[] getArgumentValues(/*~~>*/String str, /*~~>*/String argument, int maxCount) {
         if (str == null || str.isEmpty() || argument == null || argument.isEmpty()) {
-            return new String[0];
+            return new /*~~>*/String[0];
         }
 
         if (maxCount > ARGUMENT_VALUE_COUNT_LIMIT) {
             throw new RuntimeException("Does not support values more than " + ARGUMENT_VALUE_COUNT_LIMIT);
         }
             
-        List<String> list = new ArrayList<>();
+        List</*~~>*/String> list = new ArrayList<>();
 
         int startIndex = 0;
         
         for (int index = str.indexOf(argument, startIndex); index >= 0; index = str.indexOf(argument, startIndex)) {
             int argumentValueStartIndex = index + argument.length();
             StringValueAndIndex stringValueAndIndex = getArgumentValueString(str, argumentValueStartIndex);
-            list.add(stringValueAndIndex.str);
+            list.add(/*~~>*/stringValueAndIndex.str);
 
             if (stringValueAndIndex.endIndex < 0 || stringValueAndIndex.endIndex >= str.length() - 1) {
                 break;
@@ -165,10 +165,10 @@ public class StringUtils {
             }
         }
 
-        return list.toArray(new String[list.size()]);
+        return list.toArray(new /*~~>*/String[list.size()]);
     }
     
-    private static StringValueAndIndex getArgumentValueString(String str, int startIndex) {
+    private static StringValueAndIndex getArgumentValueString(/*~~>*/String str, int startIndex) {
         if (startIndex >= str.length()) {
             return new StringValueAndIndex("", 0);
         }
@@ -225,11 +225,11 @@ public class StringUtils {
     }
     
     static class StringValueAndIndex {
-        private String str;
+        private /*~~>*/String str;
         private int endIndex;
 
-        public StringValueAndIndex(String str, int endIndex) {
-            this.str = str;
+        public StringValueAndIndex(/*~~>*/String str, int endIndex) {
+            /*~~>*/this.str = str;
             this.endIndex = endIndex;
         }
     }

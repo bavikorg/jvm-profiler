@@ -19,7 +19,7 @@ package com.uber.profiling.util;
 import java.util.List;
 
 public class ClassAndMethodFilter {
-    private static final String METHOD_NAME_WILDCARD = "*";
+    private static final /*~~>*/String METHOD_NAME_WILDCARD = "*";
 
     private ClassAndMethod[] classAndMethods = new ClassAndMethod[0];
 
@@ -36,7 +36,7 @@ public class ClassAndMethodFilter {
         return classAndMethods.length == 0;
     }
 
-    public boolean matchClass(String className) {
+    public boolean matchClass(/*~~>*/String className) {
         for (ClassAndMethod classAndMethod : classAndMethods) {
             if (className.startsWith(classAndMethod.getClassName())) {
                 return true;
@@ -45,7 +45,7 @@ public class ClassAndMethodFilter {
         return false;
     }
 
-    public boolean matchMethod(String className, String methodName) {
+    public boolean matchMethod(/*~~>*/String className, /*~~>*/String methodName) {
         for (ClassAndMethod classAndMethod : classAndMethods) {
             if (className.startsWith(classAndMethod.getClassName())) {
                 if (METHOD_NAME_WILDCARD.equals(classAndMethod.getMethodName())

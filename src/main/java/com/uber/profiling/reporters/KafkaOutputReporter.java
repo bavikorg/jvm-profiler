@@ -34,33 +34,33 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class KafkaOutputReporter implements Reporter {
-    public final static String ARG_BROKER_LIST = "brokerList";
-    public final static String ARG_SYNC_MODE = "syncMode";
-    public final static String ARG_TOPIC_PREFIX = "topicPrefix";
+    public final static /*~~>*/String ARG_BROKER_LIST = "brokerList";
+    public final static /*~~>*/String ARG_SYNC_MODE = "syncMode";
+    public final static /*~~>*/String ARG_TOPIC_PREFIX = "topicPrefix";
 
     private static final AgentLogger logger = AgentLogger.getLogger(KafkaOutputReporter.class.getName());
     
-    private String brokerList = "localhost:9092";
+    private /*~~>*/String brokerList = "localhost:9092";
     private boolean syncMode = false;
     
-    private String topicPrefix;
+    private /*~~>*/String topicPrefix;
     
-    private ConcurrentHashMap<String, String> profilerTopics = new ConcurrentHashMap<>();
+    private ConcurrentHashMap</*~~>*/String, /*~~>*/String> profilerTopics = new ConcurrentHashMap<>();
 
-    private Producer<String, byte[]> producer;
+    private Producer</*~~>*/String, byte[]> producer;
 
     public KafkaOutputReporter() {
     }
     
-    public KafkaOutputReporter(String brokerList, boolean syncMode, String topicPrefix) {
-        this.brokerList = brokerList;
+    public KafkaOutputReporter(/*~~>*/String brokerList, boolean syncMode, /*~~>*/String topicPrefix) {
+        /*~~>*/this.brokerList = brokerList;
         this.syncMode = syncMode;
-        this.topicPrefix = topicPrefix;
+        /*~~>*/this.topicPrefix = topicPrefix;
     }
 
     @Override
-    public void updateArguments(Map<String, List<String>> parsedArgs) {
-        String argValue = ArgumentUtils.getArgumentSingleValue(parsedArgs, ARG_BROKER_LIST);
+    public void updateArguments(Map</*~~>*/String, List</*~~>*/String>> parsedArgs) {
+        /*~~>*/String argValue = ArgumentUtils.getArgumentSingleValue(parsedArgs, ARG_BROKER_LIST);
         if (ArgumentUtils.needToUpdateArg(argValue)) {
             setBrokerList(argValue);
             logger.info("Got argument value for brokerList: " + brokerList);
@@ -80,16 +80,16 @@ public class KafkaOutputReporter implements Reporter {
     }
 
     @Override
-    public void report(String profilerName, Map<String, Object> metrics) {
+    public void report(/*~~>*/String profilerName, Map</*~~>*/String, Object> metrics) {
         ensureProducer();
 
-        String topicName = getTopic(profilerName);
+        /*~~>*/String topicName = getTopic(profilerName);
         
-        String str = JsonUtils.serialize(metrics);
+        /*~~>*/String str = JsonUtils.serialize(metrics);
         byte[] message = str.getBytes(StandardCharsets.UTF_8);
 
         Future<RecordMetadata> future = producer.send(
-                new ProducerRecord<String, byte[]>(topicName, message));
+                new ProducerRecord</*~~>*/String, byte[]>(topicName, message));
 
         if (syncMode) {
             producer.flush();
@@ -115,12 +115,12 @@ public class KafkaOutputReporter implements Reporter {
         }
     }
 
-    public String getBrokerList() {
+    public /*~~>*/String getBrokerList() {
         return brokerList;
     }
 
-    public void setBrokerList(String brokerList) {
-        this.brokerList = brokerList;
+    public void setBrokerList(/*~~>*/String brokerList) {
+        /*~~>*/this.brokerList = brokerList;
     }
 
     public boolean isSyncMode() {
@@ -131,20 +131,20 @@ public class KafkaOutputReporter implements Reporter {
         this.syncMode = syncMode;
     }
 
-    public void setTopic(String profilerName, String topicName) {
+    public void setTopic(/*~~>*/String profilerName, /*~~>*/String topicName) {
         profilerTopics.put(profilerName, topicName);
     }
 
-    public String getTopicPrefix() {
+    public /*~~>*/String getTopicPrefix() {
         return topicPrefix;
     }
 
-    public void setTopicPrefix(String topicPrefix) {
-        this.topicPrefix = topicPrefix;
+    public void setTopicPrefix(/*~~>*/String topicPrefix) {
+        /*~~>*/this.topicPrefix = topicPrefix;
     }
 
-    public String getTopic(String profilerName) {
-        String topic = profilerTopics.getOrDefault(profilerName, null);
+    public /*~~>*/String getTopic(/*~~>*/String profilerName) {
+        /*~~>*/String topic = profilerTopics.getOrDefault(profilerName, null);
         if (topic == null || topic.isEmpty()) {
             topic = topicPrefix == null ? "" : topicPrefix;
             topic += profilerName;

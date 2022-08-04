@@ -37,17 +37,17 @@ import java.util.List;
 import java.util.Map;
 
 public class CpuAndMemoryProfiler extends ProfilerBase implements Profiler {
-    public final static String PROFILER_NAME = "CpuAndMemory";
+    public final static /*~~>*/String PROFILER_NAME = "CpuAndMemory";
 
     private static final AgentLogger logger = AgentLogger.getLogger(CpuAndMemoryProfiler.class.getName());
 
-    private static final String ATTRIBUTE_NAME_ProcessCpuLoad = "ProcessCpuLoad";
+    private static final /*~~>*/String ATTRIBUTE_NAME_ProcessCpuLoad = "ProcessCpuLoad";
     private static final int ATTRIBUTE_INDEX_ProcessCpuLoad = 0;
 
-    private static final String ATTRIBUTE_NAME_SystemCpuLoad = "SystemCpuLoad";
+    private static final /*~~>*/String ATTRIBUTE_NAME_SystemCpuLoad = "SystemCpuLoad";
     private static final int ATTRIBUTE_INDEX_SystemCpuLoad = 1;
 
-    private static final String ATTRIBUTE_NAME_ProcessCpuTime = "ProcessCpuTime";
+    private static final /*~~>*/String ATTRIBUTE_NAME_ProcessCpuTime = "ProcessCpuTime";
     private static final int ATTRIBUTE_INDEX_ProcessCpuTime = 2;
 
     private long intervalMillis = Constants.DEFAULT_METRIC_INTERVAL;
@@ -124,13 +124,13 @@ public class CpuAndMemoryProfiler extends ProfilerBase implements Profiler {
 
         }
 
-        List<Map<String, Object>> gcMetrics = new ArrayList<>();
+        List<Map</*~~>*/String, Object>> gcMetrics = new ArrayList<>();
 
         List<GarbageCollectorMXBean> gcMXBeans = ManagementFactory.getGarbageCollectorMXBeans();
         
         if (gcMXBeans != null) {
             for (GarbageCollectorMXBean gcMXBean : gcMXBeans) {
-                Map<String, Object> gcMap = new HashMap<>();
+                Map</*~~>*/String, Object> gcMap = new HashMap<>();
                 gcMap.put("name", gcMXBean.getName());
                 gcMap.put("collectionCount", new Long(gcMXBean.getCollectionCount()));
                 gcMap.put("collectionTime", new Long(gcMXBean.getCollectionTime()));
@@ -139,10 +139,10 @@ public class CpuAndMemoryProfiler extends ProfilerBase implements Profiler {
             }
         }
 
-        List<Map<String, Object>> memoryPoolsMetrics = new ArrayList<>();
+        List<Map</*~~>*/String, Object>> memoryPoolsMetrics = new ArrayList<>();
 
         for (MemoryPoolMXBean pool : ManagementFactory.getMemoryPoolMXBeans()) {
-            Map<String, Object> memoryPoolMap = new HashMap<>();
+            Map</*~~>*/String, Object> memoryPoolMap = new HashMap<>();
 
             memoryPoolMap.put("name", pool.getName());
             memoryPoolMap.put("type", pool.getType().toString());
@@ -156,12 +156,12 @@ public class CpuAndMemoryProfiler extends ProfilerBase implements Profiler {
             memoryPoolsMetrics.add(memoryPoolMap);
         }
 
-        List<Map<String, Object>> bufferPoolsMetrics = new ArrayList<>();
+        List<Map</*~~>*/String, Object>> bufferPoolsMetrics = new ArrayList<>();
 
         List<BufferPoolMXBean> bufferPools = ManagementFactory.getPlatformMXBeans(BufferPoolMXBean.class);
         if (bufferPools != null) {
             for (BufferPoolMXBean pool : bufferPools) {
-                Map<String, Object> bufferPoolMap = new HashMap<>();
+                Map</*~~>*/String, Object> bufferPoolMap = new HashMap<>();
 
                 bufferPoolMap.put("name", pool.getName());
                 bufferPoolMap.put("count", new Long(pool.getCount()));
@@ -173,13 +173,13 @@ public class CpuAndMemoryProfiler extends ProfilerBase implements Profiler {
         }
 
         // See http://man7.org/linux/man-pages/man5/proc.5.html for details about proc status
-        Map<String, String> procStatus = ProcFileUtils.getProcStatus();
+        Map</*~~>*/String, /*~~>*/String> procStatus = ProcFileUtils.getProcStatus();
         Long procStatusVmRSS = ProcFileUtils.getBytesValue(procStatus, "VmRSS");
         Long procStatusVmHWM = ProcFileUtils.getBytesValue(procStatus, "VmHWM");
         Long procStatusVmSize = ProcFileUtils.getBytesValue(procStatus, "VmSize");
         Long procStatusVmPeak = ProcFileUtils.getBytesValue(procStatus, "VmPeak");
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map</*~~>*/String, Object> map = new HashMap</*~~>*/String, Object>();
 
         map.put("epochMillis", System.currentTimeMillis());
         map.put("name", getProcessName());
@@ -251,7 +251,7 @@ public class CpuAndMemoryProfiler extends ProfilerBase implements Profiler {
 
     private AttributeList getCpuAttributes() {
         try {
-            String[] names = new String[]{ATTRIBUTE_NAME_ProcessCpuLoad, ATTRIBUTE_NAME_SystemCpuLoad, ATTRIBUTE_NAME_ProcessCpuTime};
+            /*~~>*/String[] names = new /*~~>*/String[]{ATTRIBUTE_NAME_ProcessCpuLoad, ATTRIBUTE_NAME_SystemCpuLoad, ATTRIBUTE_NAME_ProcessCpuTime};
             AttributeList list = platformMBeanServer.getAttributes(operatingSystemObjectName, names);
             if (list.size() != names.length) {
                 logger.warn("Failed to get all attributes");

@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class MethodArgumentProfiler extends ProfilerBase implements Profiler {
-    public static final String PROFILER_NAME = "MethodArgument";
+    public static final /*~~>*/String PROFILER_NAME = "MethodArgument";
 
     private ClassMethodArgumentMetricBuffer buffer;
 
@@ -68,7 +68,7 @@ public class MethodArgumentProfiler extends ProfilerBase implements Profiler {
         long epochMillis = System.currentTimeMillis();
 
         for (Map.Entry<ClassAndMethodMetricKey, AtomicLong> entry : metrics.entrySet()) {
-            Map<String, Object> commonMap = new HashMap<>();
+            Map</*~~>*/String, Object> commonMap = new HashMap<>();
 
             commonMap.put("epochMillis", epochMillis);
             commonMap.put("processName", getProcessName());
@@ -92,7 +92,7 @@ public class MethodArgumentProfiler extends ProfilerBase implements Profiler {
             }
 
             {
-                Map<String, Object> metricMap = new HashMap<>(commonMap);
+                Map</*~~>*/String, Object> metricMap = new HashMap<>(commonMap);
                 metricMap.put("metricName", entry.getKey().getMetricName());
                 metricMap.put("metricValue", (double) entry.getValue().get());
                 reporter.report(PROFILER_NAME, metricMap);

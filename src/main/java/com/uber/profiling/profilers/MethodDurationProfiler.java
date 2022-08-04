@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MethodDurationProfiler extends ProfilerBase implements Profiler {
-    public static final String PROFILER_NAME = "MethodDuration";
+    public static final /*~~>*/String PROFILER_NAME = "MethodDuration";
 
     private ClassAndMethodLongMetricBuffer buffer;
 
@@ -68,7 +68,7 @@ public class MethodDurationProfiler extends ProfilerBase implements Profiler {
         long epochMillis = System.currentTimeMillis();
 
         for (Map.Entry<ClassAndMethodMetricKey, Histogram> entry : metrics.entrySet()) {
-            Map<String, Object> commonMap = new HashMap<>();
+            Map</*~~>*/String, Object> commonMap = new HashMap<>();
 
             commonMap.put("epochMillis", epochMillis);
             commonMap.put("processName", getProcessName());
@@ -92,25 +92,25 @@ public class MethodDurationProfiler extends ProfilerBase implements Profiler {
             }
 
             {
-                Map<String, Object> metricMap = new HashMap<>(commonMap);
+                Map</*~~>*/String, Object> metricMap = new HashMap<>(commonMap);
                 metricMap.put("metricName", entry.getKey().getMetricName() + ".count");
                 metricMap.put("metricValue", (double) entry.getValue().getCount());
                 reporter.report(PROFILER_NAME, metricMap);
             }
             {
-                Map<String, Object> metricMap = new HashMap<>(commonMap);
+                Map</*~~>*/String, Object> metricMap = new HashMap<>(commonMap);
                 metricMap.put("metricName", entry.getKey().getMetricName() + ".sum");
                 metricMap.put("metricValue", (double) entry.getValue().getSum());
                 reporter.report(PROFILER_NAME, metricMap);
             }
             {
-                Map<String, Object> metricMap = new HashMap<>(commonMap);
+                Map</*~~>*/String, Object> metricMap = new HashMap<>(commonMap);
                 metricMap.put("metricName", entry.getKey().getMetricName() + ".min");
                 metricMap.put("metricValue", (double) entry.getValue().getMin());
                 reporter.report(PROFILER_NAME, metricMap);
             }
             {
-                Map<String, Object> metricMap = new HashMap<>(commonMap);
+                Map</*~~>*/String, Object> metricMap = new HashMap<>(commonMap);
                 metricMap.put("metricName", entry.getKey().getMetricName() + ".max");
                 metricMap.put("metricValue", (double) entry.getValue().getMax());
                 reporter.report(PROFILER_NAME, metricMap);

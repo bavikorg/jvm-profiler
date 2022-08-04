@@ -24,7 +24,7 @@ import java.util.List;
 public class StringUtilsTest {
     @Test
     public void splitByLength() {
-        List<String> list = StringUtils.splitByLength("a", 1);
+        List</*~~>*/String> list = StringUtils.splitByLength("a", 1);
         Assert.assertEquals(1, list.size());
         Assert.assertEquals("a", list.get(0));
 
@@ -51,7 +51,7 @@ public class StringUtilsTest {
         Assert.assertEquals(1, StringUtils.extractByRegex("", "").size());
         Assert.assertEquals("", StringUtils.extractByRegex("", "").get(0));
 
-        List<String> list = StringUtils.extractByRegex(
+        List</*~~>*/String> list = StringUtils.extractByRegex(
                 "appcache/application_1498604172385_2751189/container_e241_1498604172385_2751189_01_000267",
                 "application_[\\w_]+");
         Assert.assertEquals(1, list.size());
@@ -121,19 +121,19 @@ public class StringUtilsTest {
 
     @Test
     public void getArgumentValues() {
-        Assert.assertArrayEquals(new String[0], StringUtils.getArgumentValues(null, null));
-        Assert.assertArrayEquals(new String[0], StringUtils.getArgumentValues(null, ""));
-        Assert.assertArrayEquals(new String[0], StringUtils.getArgumentValues("", null));
+        Assert.assertArrayEquals(new /*~~>*/String[0], StringUtils.getArgumentValues(null, null));
+        Assert.assertArrayEquals(new /*~~>*/String[0], StringUtils.getArgumentValues(null, ""));
+        Assert.assertArrayEquals(new /*~~>*/String[0], StringUtils.getArgumentValues("", null));
 
 
-        Assert.assertArrayEquals(new String[0], StringUtils.getArgumentValues("", ""));
-        Assert.assertArrayEquals(new String[0], StringUtils.getArgumentValues("test", ""));
-        Assert.assertArrayEquals(new String[0], StringUtils.getArgumentValues("", "test"));
+        Assert.assertArrayEquals(new /*~~>*/String[0], StringUtils.getArgumentValues("", ""));
+        Assert.assertArrayEquals(new /*~~>*/String[0], StringUtils.getArgumentValues("test", ""));
+        Assert.assertArrayEquals(new /*~~>*/String[0], StringUtils.getArgumentValues("", "test"));
 
 
-        Assert.assertArrayEquals(new String[]{"com.foo.jobs.Abc"}, StringUtils.getArgumentValues("--class com.foo.jobs.Abc", "--class"));
-        Assert.assertArrayEquals(new String[]{"com.foo.jobs.Abc", "com.foo.jobs.Abc", " com.foo.jobs.Abc "}, StringUtils.getArgumentValues(" --class  \"com.foo.jobs.Abc\"  --class com.foo.jobs.Abc --class  ' com.foo.jobs.Abc ' ", "--class"));
+        Assert.assertArrayEquals(new /*~~>*/String[]{"com.foo.jobs.Abc"}, StringUtils.getArgumentValues("--class com.foo.jobs.Abc", "--class"));
+        Assert.assertArrayEquals(new /*~~>*/String[]{"com.foo.jobs.Abc", "com.foo.jobs.Abc", " com.foo.jobs.Abc "}, StringUtils.getArgumentValues(" --class  \"com.foo.jobs.Abc\"  --class com.foo.jobs.Abc --class  ' com.foo.jobs.Abc ' ", "--class"));
 
-        Assert.assertArrayEquals(new String[]{"com.foo.jobs.Abc"}, StringUtils.getArgumentValues("xyz --class com.foo.jobs.Abc --jar file:/home/test/hi.jar --others world", "--class"));
+        Assert.assertArrayEquals(new /*~~>*/String[]{"com.foo.jobs.Abc"}, StringUtils.getArgumentValues("xyz --class com.foo.jobs.Abc --jar file:/home/test/hi.jar --others world", "--class"));
     }
 }
